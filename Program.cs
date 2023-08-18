@@ -36,7 +36,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             Console.WriteLine("Slot machine! place your bet! every spin costs 1$, if you win you get 1$!");
             int userBet = Console.Read();
             userBet = Console.Read();
-            Console.WriteLine("you bet " + userBet + "$");
+            Console.WriteLine($"you bet {userBet}$");
 
 
         }
