@@ -16,7 +16,7 @@ As for the mechanism to determine what the wheels produce per spin, use a random
 
 - fill array with random numbers
 - output that array
-- check if middle row is all the same
+- check if middle row is all the same --> if numbers[0][1] == numbers[1][1]
 - output win / lose
 - keep track of money
  */
@@ -31,14 +31,24 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            int[] numbers = {9,5,1};
-            foreach (int i in numbers){Console.WriteLine(i);}
-            Console.WriteLine("Slot machine! place your bet! every spin costs 1$, if you win you get 1$!");
-            int userBet = Console.Read();
-            userBet = Console.Read();
-            Console.WriteLine($"you bet {userBet}$");
+            Random random = new Random();
 
+            Console.WriteLine("\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!");
+            int[,] numbers = new int[3,3];
+            int userBet = Int32.Parse(Console.ReadLine());
+            Console.Write($"you bet {userBet}$");
 
+            for (int i = 0; i < numbers.GetLength(0); i++)
+            {
+                for (int j = 0; j < numbers.GetLength(1); j++)
+                {
+
+                    int computerChoice = random.Next(0, 9);
+
+                    numbers[i, j] += computerChoice;
+                    Console.Write(numbers[i, j] + " ");
+                }
+            }
         }
     }
 }
