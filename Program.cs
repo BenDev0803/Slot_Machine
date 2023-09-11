@@ -38,15 +38,36 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             int userBet = Int32.Parse(Console.ReadLine());
             Console.Write($"you bet {userBet}$");
 
-            for (int i = 0; i < numbers.GetLength(0); i++)
+            while(true)
             {
-                for (int j = 0; j < numbers.GetLength(1); j++)
+                for (int i = 0; i < numbers.GetLength(0); i++)
                 {
+                    for (int j = 0; j < numbers.GetLength(1); j++)
+                    {
+                        int computerChoice = random.Next(1, 10);
+                        numbers[i, j] += computerChoice;
+                        Console.Write(numbers[i, j].ToString() + " ");
+                    }
+                }
+                Console.WriteLine("Do you want to play again? y/n");
+                string userAnswer = Console.ReadLine();
 
-                    int computerChoice = random.Next(0, 9);
-
-                    numbers[i, j] += computerChoice;
-                    Console.Write(numbers[i, j] + " ");
+                if (userAnswer == "y")
+                {
+                    for (int i = 0; i < numbers.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < numbers.GetLength(1); j++)
+                        {
+                            int computerChoice = random.Next(1, 10);
+                            numbers[i, j] += computerChoice;
+                            Console.Write(numbers[i, j].ToString() + " ");
+                        }
+                    }
+                    ;
+                }
+                else if (userAnswer == "n") 
+                {
+                    break;
                 }
             }
         }
