@@ -34,41 +34,56 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             Random random = new Random();
 
             Console.WriteLine("\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!");
-            int[,] numbers = new int[3,3];
-            int userBet = Int32.Parse(Console.ReadLine());
-            Console.Write($"you bet {userBet}$");
+            int[,] numbers = new int[3,3]; // define the exact number of rows and columns
+            int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
 
-            while(true)
+            Console.Write($"you bet {userBet}$ ");
+
+
+            while(true) // while loop is used for repeating a block of code until the user blocks it
             {
-                for (int i = 0; i < numbers.GetLength(0); i++)
+
+                // 1 - fill 2 dimensional array with random numbers
+                //-----------------------------------------------------
+                for (int col = 0; col < numbers.GetLength(0); col++)
                 {
-                    for (int j = 0; j < numbers.GetLength(1); j++)
+                    for (int row = 0; row < numbers.GetLength(1); row++)
                     {
                         int computerChoice = random.Next(1, 10);
-                        numbers[i, j] += computerChoice;
-                        Console.Write(numbers[i, j].ToString() + " ");
+                        numbers[col, row] = computerChoice;
+                        //numbers.ToString();
+                        //Console.Write(numbers[col, row]);
+
                     }
                 }
-                Console.WriteLine("Do you want to play again? y/n");
+                //-----------------------------------------------------
+
+
+                // 2 - display array in rows and columns
+                //-----------------------------------------------------
+                for(int col = 0;  col < numbers.GetLength(0); col++)
+                {
+                    Console.WriteLine();
+
+                    for (int row = 0; row < numbers.GetLength(1); row++)
+                    {
+                        Console.Write(' ');
+                        Console.Write(numbers[col, row]);
+                        Console.Write(' ');
+                    }
+                }
+                //----------------------------------------------------
+                
+                // repeat the game 
+                //---------------------------------------------------- 
+                Console.WriteLine("\nDo you want to play again? y/n");
                 string userAnswer = Console.ReadLine();
 
-                if (userAnswer == "y")
-                {
-                    for (int i = 0; i < numbers.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < numbers.GetLength(1); j++)
-                        {
-                            int computerChoice = random.Next(1, 10);
-                            numbers[i, j] += computerChoice;
-                            Console.Write(numbers[i, j].ToString() + " ");
-                        }
-                    }
-                    ;
-                }
-                else if (userAnswer == "n") 
+                if (userAnswer == "n") 
                 {
                     break;
                 }
+                //----------------------------------------------------
             }
         }
     }
