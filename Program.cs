@@ -20,7 +20,7 @@ As for the mechanism to determine what the wheels produce per spin, use a random
 - output win / lose
 - keep track of money
  */
-
+// if arr1[0][1] == arr2[0][1]
 
 
 using System;
@@ -31,12 +31,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
+            const int ROWS = 3;
+            const int COLUMNS = 3;
             Random random = new Random();
 
             Console.WriteLine("\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!");
-            int[,] numbers = new int[3,3]; // define the exact number of rows and columns
+            int[,] numbers = new int[ROWS,COLUMNS]; // define the exact number of rows and columns
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
-
+            
             Console.Write($"you bet {userBet}$ ");
 
 
@@ -73,7 +75,20 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                 }
                 //----------------------------------------------------
-                
+
+                // 3 - check if middle row is all the same
+
+                for (int check = 0; check < numbers.GetLength(0); check++)
+                {
+                    for(int match = 0; match < numbers.GetLength(1); match++)
+                    {
+                        if (numbers[check, match] == numbers[check, match] + 1)
+                        {
+                            Console.WriteLine("you win!");
+                        }
+                    }
+                }
+
                 // repeat the game 
                 //---------------------------------------------------- 
                 Console.WriteLine("\nDo you want to play again? y/n");
