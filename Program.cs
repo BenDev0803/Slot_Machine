@@ -14,9 +14,9 @@ Each of these row checking algorithms will then need to look for winning combina
 The result is then dumped into the player’s money total. 
 As for the mechanism to determine what the wheels produce per spin, use a random number generating function.
 
-- fill array with random numbers
+- fill array with random slotNumbers
 - output that array
-- check if middle row is all the same --> if numbers[0][1] == numbers[1][1]
+- check if middle row is all the same
 - output win / lose
 - keep track of money
  */
@@ -24,6 +24,7 @@ As for the mechanism to determine what the wheels produce per spin, use a random
 
 
 using System;
+using System.Security.Cryptography;
 
 namespace Slot_Machine // Note: actual namespace depends on the project name.
 {
@@ -36,7 +37,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             Random random = new Random();
 
             Console.WriteLine("\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!");
-            int[,] numbers = new int[ROWS,COLUMNS]; // define the exact number of rows and columns
+            int[,] slotNumbers = new int[ROWS,COLUMNS]; // define the exact number of rows and columns
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             
             Console.Write($"you bet {userBet}$ ");
@@ -45,16 +46,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             while(true) // while loop is used for repeating a block of code until the user blocks it
             {
 
-                // 1 - fill 2 dimensional array with random numbers
+                // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
-                for (int col = 0; col < numbers.GetLength(0); col++)
+                for (int col = 0; col < slotNumbers.GetLength(0); col++)
                 {
-                    for (int row = 0; row < numbers.GetLength(1); row++)
+                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
                         int computerChoice = random.Next(1, 10);
-                        numbers[col, row] = computerChoice;
-                        //numbers.ToString();
-                        //Console.Write(numbers[col, row]);
+                        slotNumbers[col, row] = computerChoice;
 
                     }
                 }
@@ -63,14 +62,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 // 2 - display array in rows and columns
                 //-----------------------------------------------------
-                for(int col = 0;  col < numbers.GetLength(0); col++)
+                for(int col = 0;  col < slotNumbers.GetLength(0); col++)
                 {
                     Console.WriteLine();
 
-                    for (int row = 0; row < numbers.GetLength(1); row++)
+                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
                         Console.Write(' ');
-                        Console.Write(numbers[col, row]);
+                        Console.Write(slotNumbers[col, row]);
                         Console.Write(' ');
                     }
                 }
@@ -78,19 +77,23 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 // 3 - check if middle row is all the same
 
-                for (int check = 0; check < numbers.GetLength(0); check++)
+                for (int i = 0; i < slotNumbers.GetLength(0); i++)
                 {
-                    for(int match = 0; match < numbers.GetLength(1); match++)
-                    {
-                        if (numbers[check, match] == numbers[check, match] + 1)
+                    
+                        if (slotNumbers[1,0] == slotNumbers[1,1] && slotNumbers[1,1] == slotNumbers[1,2])
                         {
-                            Console.WriteLine("you win!");
+                        Console.WriteLine("\nyou win!");
                         }
-                    }
+                        else
+                        {
+                            Console.WriteLine("\nyou lose!");
+                        }   
                 }
 
-                // repeat the game 
-                //---------------------------------------------------- 
+                // 4 - output win / lose
+
+                // 5 - keep track of money
+
                 Console.WriteLine("\nDo you want to play again? y/n");
                 string userAnswer = Console.ReadLine();
 
