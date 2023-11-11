@@ -33,10 +33,12 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
+            
             const int ROWS = 3;
             const int COLUMNS = 3;
+            const int MAX = 9;
+            const int MIN = 1;
             Random random = new Random();
-
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
             Console.WriteLine(initialStatement);
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
@@ -56,13 +58,11 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
-                        int computerChoice = random.Next(1, 10);
+                        int computerChoice = random.Next(MIN, MAX +1);
                         slotNumbers[col, row] = computerChoice;
-
                     }
                 }
                 //-----------------------------------------------------
-
 
                 // 2 - display array in rows and columns
                 //-----------------------------------------------------
@@ -75,35 +75,27 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         Console.Write(' ');
                         Console.Write(slotNumbers[col, row]);
                         Console.Write(' ');
-
-
-
                     }
                     Console.Write(' ');
                 }
                 //----------------------------------------------------
 
-                // 3 - check if middle row is all the same
+                // 3 - check if numbers of a row are all the same
 
-
-                Console.WriteLine($"your total amount of money is {cashBox}$");
+                Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                 {
-                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
+                    if (slotNumbers[rowCheck, 0] == slotNumbers[rowCheck, 1] && slotNumbers[rowCheck, 0] == slotNumbers[rowCheck, 2])
                     {
-                        if (slotNumbers[1,0] == slotNumbers[1,1] && slotNumbers[1,1] == slotNumbers[1,2])
-                        {
-                            gameStatus = true;
-                        }
-                        else
-                        {
-                            gameStatus = false;
-                        }
+                        gameStatus = true;
+                        break;
+                    }
+                    else
+                    {
+                        gameStatus = false;
                     }
                 }
-                Console.WriteLine($"\n middle row 1st = {slotNumbers[1, 0]} \n middle row 2nd = {slotNumbers[1, 1]}\n middle row 3rd = {slotNumbers[1, 2]}");
-
                 // 4 - output win / lose
 
                 if (gameStatus == true)
@@ -116,9 +108,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     Console.WriteLine("You lose!");
                 }
 
-
                 // 5 - keep track of money
-
 
                 if(gameStatus == true)
                 {
@@ -128,9 +118,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     cashBox--;
                 }
-                
+
                 //final part of game
-                
+
                 string userAnswer;
 
                 if (cashBox > 0) 
@@ -160,15 +150,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         break;
                     }
                 }
-
-
-
-                //test
-
-
-
-
-                //----------------------------------------------------
+                Console.Clear();
             }
         }
     }
