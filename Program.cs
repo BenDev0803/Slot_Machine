@@ -44,7 +44,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
-            bool gameStatus = false;
+            bool gameStatus = true;
+            List<int> slots = new List<int>();
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
@@ -81,36 +82,39 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 //----------------------------------------------------
 
                 // 3 - check if numbers of a row are all the same
-
+                // 4 - output win / lose
                 Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                 {
-                    if (slotNumbers[rowCheck, 0] == slotNumbers[rowCheck, 1] && slotNumbers[rowCheck, 0] == slotNumbers[rowCheck, 2])
+                    // switch on again
+                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++) 
                     {
-                        gameStatus = true;
-                        break;
+                        if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck]) 
+                        {
+                            gameStatus = false;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        gameStatus = false;
-                    }
+                    //handling of gameStatus
+
                 }
+
                 // 4 - output win / lose
 
-                if (gameStatus == true)
+                if (gameStatus == false)
                 {
-                    Console.WriteLine("You Win!");
+                    Console.WriteLine("You Lose!");
                 }
                 else
                 {
-
-                    Console.WriteLine("You lose!");
+                    Console.WriteLine("You Win!");
                 }
+
 
                 // 5 - keep track of money
 
-                if(gameStatus == true)
+                if (gameStatus == true)
                 {
                     cashBox++;
                 }
