@@ -44,6 +44,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
+            int numberOfMatchingRows = 0;
             bool gameStatus = true;
             List<int> slots = new List<int>();
             Console.Write($"you bet {userBet}$ ");
@@ -87,7 +88,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                 {
-                    gameStatus = true;
+                    // switch on again
+                    
 
                     for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++) 
                     {
@@ -98,8 +100,10 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         }
                     }
                     //handling of gameStatus
-
+                    
                 }
+
+
 
                 // 4 - output win / lose
 
@@ -109,7 +113,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 else
                 {
-                    Console.WriteLine("You Win!");
+                    Console.WriteLine($"You Win! number of matching rows: {numberOfMatchingRows} ");
+                    
                 }
 
 
