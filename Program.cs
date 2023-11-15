@@ -87,7 +87,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                 {
-                    // switch on again
+                    gameStatus = true;
+
                     for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++) 
                     {
                         if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck]) 
