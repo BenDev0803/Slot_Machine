@@ -33,7 +33,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            
             const int ROWS = 3;
             const int COLUMNS = 3;
             const int MAX = 9;
@@ -45,14 +44,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
             int numberOfMatchingRows = 0;
-            bool gameStatus = true;
-            List<int> slots = new List<int>();
+            bool winningRowFound = true;
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
+                numberOfMatchingRows = 0; //reset wining row count
 
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
@@ -60,10 +59,12 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
-                        int computerChoice = random.Next(MIN, MAX +1);
+                        int computerChoice = random.Next(MIN, MAX + 1);
                         slotNumbers[col, row] = computerChoice;
                     }
                 }
+
+
                 //-----------------------------------------------------
 
                 // 2 - display array in rows and columns
@@ -89,38 +90,40 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                 {
                     // switch on again
-                    
+                    winningRowFound = true;
 
-                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++) 
+                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
                     {
-                        if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck]) 
+                        if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck])
                         {
-                            gameStatus = false;
+                            winningRowFound = false;
                             break;
                         }
                     }
-                    //handling of gameStatus
-                    
+
+                    //handling of gameStatus      
+                    if (winningRowFound)
+                    {
+                        numberOfMatchingRows++;
+                    }
                 }
-
-
 
                 // 4 - output win / lose
 
-                if (gameStatus == false)
+                if (numberOfMatchingRows == 0)
                 {
                     Console.WriteLine("You Lose!");
                 }
                 else
                 {
                     Console.WriteLine($"You Win! number of matching rows: {numberOfMatchingRows} ");
-                    
                 }
+
 
 
                 // 5 - keep track of money
 
-                if (gameStatus == true)
+                if (winningRowFound == true)
                 {
                     cashBox++;
                 }
@@ -133,7 +136,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 string userAnswer;
 
-                if (cashBox > 0) 
+                if (cashBox > 0)
                 {
                     Console.WriteLine("\nDo you want to play again? y/n");
                     userAnswer = Console.ReadLine();
@@ -143,10 +146,11 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                 }
 
-                else if(cashBox == 0){
-                    
+                else if (cashBox == 0)
+                {
+
                     Console.WriteLine("You don't have money! do you want to bet again? y/n");
-                    
+
                     string userConfirmation = Console.ReadLine();
 
                     if (userConfirmation == "y")
