@@ -37,6 +37,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const int COLUMNS = 3;
             const int MAX = 9;
             const int MIN = 1;
+            const int BONUS_WIN = 10; 
             Random random = new Random();
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
             Console.WriteLine(initialStatement);
@@ -84,7 +85,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 //----------------------------------------------------
 
                 // 3 - check if numbers of a row are all the same
-                // 4 - output win / lose
+
                 Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
                 for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
@@ -126,6 +127,13 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 if (winningRowFound == true)
                 {
                     cashBox++;
+                }
+                else if (numberOfMatchingRows == 2){
+                    cashBox += BONUS_WIN; 
+                }
+                else if (numberOfMatchingRows == 3)
+                {
+                    cashBox += (BONUS_WIN * 3); 
                 }
                 else
                 {
