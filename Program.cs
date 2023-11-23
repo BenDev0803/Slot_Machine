@@ -95,7 +95,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 //----------------------------------------------------
 
 
-                /*
+                
                  if (userChoiceChar == ROWS_CHAR) 
                 {
                     // 3 - check if numbers of a row are all the same
@@ -152,7 +152,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     cashBox--;
                     }
                 }
-                 */
+                 
 
                 if (userChoiceChar == COLUMNS_CHAR) 
                 {
