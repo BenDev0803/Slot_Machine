@@ -37,15 +37,23 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const int COLUMNS = 3;
             const int MAX = 9;
             const int MIN = 1;
-            const int BONUS_WIN = 10; 
+            const int BONUS_WIN = 10;
+            const char COLUMNS_CHAR = 'c';
+            const char ROWS_CHAR = 'r';
             Random random = new Random();
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
             Console.WriteLine(initialStatement);
-            int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
+            string userChoiceText = "do you want to play rows (r) or columns (c)?";
+            Console.WriteLine(userChoiceText);
+            ConsoleKeyInfo userChoiceKeyInfo = Console.ReadKey(true);
+            Char userChoiceChar = userChoiceKeyInfo.KeyChar;
+            int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             int numberOfMatchingRows = 0;
+            int numberOfMatchingColumns = 0;
             bool winningRowFound = true;
+            bool winningColFound = true;
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
@@ -53,6 +61,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
                 numberOfMatchingRows = 0; //reset wining row count
+                numberOfMatchingColumns = 0;
+               
 
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
@@ -84,61 +94,125 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 //----------------------------------------------------
 
-                // 3 - check if numbers of a row are all the same
 
-                Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-
-                for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
+                /*
+                 if (userChoiceChar == ROWS_CHAR) 
                 {
-                    // switch on again
-                    winningRowFound = true;
+                    // 3 - check if numbers of a row are all the same
 
-                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
+                    Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
+
+                    for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                     {
-                        if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck])
+                        // switch on again
+                        winningRowFound = true;
+
+                        for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
                         {
-                            winningRowFound = false;
-                            break;
+                            if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck])
+                            {
+                                winningRowFound = false;
+                                break;
+                            }
+                        }
+
+                        //handling of gameStatus      
+                        if (winningRowFound)
+                        {
+                            numberOfMatchingRows++;
                         }
                     }
 
-                    //handling of gameStatus      
-                    if (winningRowFound)
+                    // 4 - output win / lose
+
+                    if (numberOfMatchingRows == 0)
                     {
-                        numberOfMatchingRows++;
+                        Console.WriteLine("You Lose!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You Win! number of matching rows: {numberOfMatchingRows} ");
+                    }
+
+                    // 5 - keep track of money
+
+                    if (winningRowFound == true)
+                    {
+                    cashBox++;
+                    }
+                    else if (numberOfMatchingRows == 2){
+                    cashBox += BONUS_WIN; 
+                    }
+                    else if (numberOfMatchingRows == 3)
+                    {
+                    cashBox += (BONUS_WIN * 3);
+                    }
+                    else
+                    {
+                    cashBox--;
+                    }
+                }
+                 */
+
+                if (userChoiceChar == COLUMNS_CHAR) 
+                {
+                    // 3 - check if numbers of a row are all the same
+
+                    Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
+
+                    for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
+                    {
+                        // switch on again
+                        winningColFound = true;
+
+                        for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
+                        {
+                            if (slotNumbers[colCheck, 0] != slotNumbers[rowCheck, colCheck])
+                            {
+                                winningColFound = false;
+                                break;
+                            }
+                        }
+
+                        //handling of gameStatus      
+                        if (winningColFound)
+                        {
+                            numberOfMatchingColumns++;
+                        }
+                    }
+
+                    // 4 - output win / lose
+
+                    if (numberOfMatchingColumns == 0)
+                    {
+                        Console.WriteLine("You Lose!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You Win! number of matching columns: {numberOfMatchingColumns} ");
+                    }
+
+                    // 5 - keep track of money
+
+                    if (winningColFound == true)
+                    {
+                        cashBox++;
+                    }
+                    else if (numberOfMatchingColumns == 2)
+                    {
+                        cashBox += BONUS_WIN;
+                    }
+                    else if (numberOfMatchingColumns == 3)
+                    {
+                        cashBox += (BONUS_WIN * 3);
+
+                    }
+                    else
+                    {
+                        cashBox--;
                     }
                 }
 
-                // 4 - output win / lose
-
-                if (numberOfMatchingRows == 0)
-                {
-                    Console.WriteLine("You Lose!");
-                }
-                else
-                {
-                    Console.WriteLine($"You Win! number of matching rows: {numberOfMatchingRows} ");
-                }
-
-
-
-                // 5 - keep track of money
-
-                if (winningRowFound == true)
-                {
-                    cashBox++;
-                }
-                else if (numberOfMatchingRows == 2){
-                    cashBox += BONUS_WIN; 
-                }
-                else if (numberOfMatchingRows == 3)
-                {
-                    cashBox += (BONUS_WIN * 3); 
-                }
-                else
-                {
-                    cashBox--;
-                }
 
                 //final part of game
 
