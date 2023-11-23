@@ -60,8 +60,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
-                numberOfMatchingRows = 0; //reset wining row count
-                numberOfMatchingColumns = 0;
+                //numberOfMatchingRows = 0; //reset wining row count
+                numberOfMatchingColumns = 0; // reset winning column count
                
 
                 // 1 - fill 2 dimensional array with random slotNumbers
@@ -167,18 +167,22 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                         for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
                         {
-                            if (slotNumbers[colCheck, 0] != slotNumbers[rowCheck, colCheck])
+                            if (slotNumbers[0, rowCheck] != slotNumbers[colCheck,rowCheck])
                             {
-                                winningColFound = false;
-                                break;
+                              winningColFound = false;
+                              break;
                             }
                         }
 
                         //handling of gameStatus      
-                        if (winningColFound)
+
+                        
+                         if (winningColFound)
                         {
                             numberOfMatchingColumns++;
                         }
+                         
+
                     }
 
                     // 4 - output win / lose
@@ -186,6 +190,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     if (numberOfMatchingColumns == 0)
                     {
                         Console.WriteLine("You Lose!");
+
                     }
                     else
                     {
