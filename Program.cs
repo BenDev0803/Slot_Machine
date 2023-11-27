@@ -160,14 +160,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
-                    for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
+                    for (int colCheck = 0; colCheck < slotNumbers.GetLength(0); colCheck++)
                     {
                         // switch on again
                         winningColFound = true;
 
-                        for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
+                        for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
                         {
-                            if (slotNumbers[0, rowCheck] != slotNumbers[colCheck,rowCheck])
+                            if (slotNumbers[0,colCheck] != slotNumbers[rowCheck,colCheck])
                             {
                               winningColFound = false;
                               break;
@@ -181,8 +181,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         {
                             numberOfMatchingColumns++;
                         }
-                         
-
                     }
 
                     // 4 - output win / lose
