@@ -33,40 +33,78 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
+            // declare numbers of rows and columns
             const int ROWS = 3;
             const int COLUMNS = 3;
+            //declare range of numbers that should be displayed randomly
             const int MAX = 9;
             const int MIN = 1;
+            // declare bonus win for multiple matching rows/columns
             const int BONUS_WIN = 10;
+            // declare characters that user should press for choosing rows or columns
             const char COLUMNS_CHAR = 'c';
             const char ROWS_CHAR = 'r';
+            const char DIA_CHAR = 'd';
+            // creates random number
             Random random = new Random();
+            //game start initial statement
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
             Console.WriteLine(initialStatement);
+            //the user here inputs the amount of money that wants to bet
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
-            string userChoiceText = "do you want to play rows (r) or columns (c)?";
+            // game start second statement
+            string userChoiceText = "do you want to play rows (r), columns (c) or diagonals (d)?";
             Console.WriteLine(userChoiceText);
+            // read the input from the user
             ConsoleKeyInfo userChoiceKeyInfo = Console.ReadKey(true);
             Char userChoiceChar = userChoiceKeyInfo.KeyChar;
+            // initialized array with the slot numbers
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
+
+
+            // ----- debugging code -----
+
+            /*
+             slotNumbers[0,0] = 1; slotNumbers[0,1] = 4; slotNumbers[0,2] = 7; 
+
+
+             slotNumbers[1,0] = 2; slotNumbers[1,1] = 1; slotNumbers[1,2] = 7;
+
+
+             slotNumbers[2,0] = 3; slotNumbers[2,1] = 6; slotNumbers[2,2] = 1;
+
+             */
+
+
+            // declare number of matching rows/columns that later will change depending on the progression of the game
             int numberOfMatchingRows = 0;
             int numberOfMatchingColumns = 0;
+            int numberOfMatches = 0;
+
             bool winningRowFound = true;
+            bool winningMatchFound = true;
             bool winningColFound = true;
+            
+            
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
-                //numberOfMatchingRows = 0; //reset wining row count
+                numberOfMatchingRows = 0; //reset wining row count
                 numberOfMatchingColumns = 0; // reset winning column count
-               
+                numberOfMatches = 0;
+
+
 
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
-                for (int col = 0; col < slotNumbers.GetLength(0); col++)
+
+
+                
+                 for (int col = 0; col < slotNumbers.GetLength(0); col++)
                 {
                     for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
@@ -74,6 +112,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         slotNumbers[col, row] = computerChoice;
                     }
                 }
+                 
+
+
 
 
                 //-----------------------------------------------------
@@ -94,7 +135,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 //----------------------------------------------------
 
-
+                //++++++***** R O W S *******++++
                 
                  if (userChoiceChar == ROWS_CHAR) 
                 {
@@ -153,7 +194,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                 }
                  
-
+                 // ++++++***** C O L U M N S *****+++++++
+                
                 if (userChoiceChar == COLUMNS_CHAR) 
                 {
                     // 3 - check if numbers of a row are all the same
@@ -215,6 +257,107 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         cashBox--;
                     }
                 }
+                // +++++***** D I A G O N A L S *******++++++
+                // +++++***** L     E     F   T *******++++++
+                if(userChoiceChar == DIA_CHAR)
+                {
+                    Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
+                    for (int diaLeftCheck = 0; diaLeftCheck < slotNumbers.GetLength(0); diaLeftCheck++)
+                    {
+
+                        winningMatchFound = true;
+                        
+                        if (slotNumbers[0, 0] != slotNumbers[diaLeftCheck, diaLeftCheck++])
+                        {
+                            winningMatchFound = false;
+                            break;
+                        }
+                    }
+
+                    if (winningMatchFound == true)
+                    {
+                        numberOfMatches++;
+                    }
+                    
+                    
+
+                    // 4 - output win / lose
+
+                    if (numberOfMatches == 0)
+                    {
+                        Console.WriteLine("You Lose!");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You Win! number of matching diagonals: {numberOfMatches} ");
+                    }
+
+                    // 5 - keep track of money
+
+                    if (winningMatchFound == true)
+                    {
+                        cashBox++;
+                    }
+                    else if (numberOfMatches == 2)
+                    {
+                        cashBox += BONUS_WIN;
+                    }
+                    else
+                    {
+                        cashBox--;
+                    }
+                }
+
+
+                // +++++***** D I A G O N A L S *******++++++
+                // +++++***** R   I  G   H    T *******++++++
+
+                /*
+                 if (userChoiceChar == 'd')
+                {
+                    Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
+
+                    for (int diaRighttCheck = 0; diaRighttCheck < slotNumbers.GetLength(0); diaRighttCheck++)
+                    {
+
+
+                    }
+
+                    if (winningMatchFound == true)
+                    {
+                        numberOfMatches++;
+                    }
+
+                    // 4 - output win / lose
+
+                    if (numberOfMatches == 0)
+                    {
+                        Console.WriteLine("You Lose!");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You Win! number of matching diagonals: {numberOfMatches} ");
+                    }
+
+                    // 5 - keep track of money
+
+                    if (winningMatchFound == true)
+                    {
+                        cashBox++;
+                    }
+                    else if (numberOfMatches == 2)
+                    {
+                        cashBox += BONUS_WIN;
+                    }
+                    else
+                    {
+                        cashBox--;
+                    }
+                }
+                 
+                 */
 
 
                 //final part of game
@@ -225,11 +368,18 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     Console.WriteLine("\nDo you want to play again? y/n");
                     userAnswer = Console.ReadLine();
+
                     if (userAnswer == "n")
                     {
                         break;
                     }
+                    Console.WriteLine(userChoiceText);
+                    ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
+                    Char userChoiceNumberChar = userNumberChoice.KeyChar;
+                    
+
                 }
+
 
                 else if (cashBox == 0)
                 {
