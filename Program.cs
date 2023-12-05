@@ -65,16 +65,27 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             // ----- debugging code -----
 
+
+
             /*
-             slotNumbers[0,0] = 1; slotNumbers[0,1] = 4; slotNumbers[0,2] = 7; 
+
+               slotNumbers[0,0] = 7; slotNumbers[0,1] = 4; slotNumbers[0,2] = 8; 
 
 
-             slotNumbers[1,0] = 2; slotNumbers[1,1] = 1; slotNumbers[1,2] = 7;
+              slotNumbers[1,0] = 2; slotNumbers[1,1] = 7; slotNumbers[1,2] = 9;
 
 
-             slotNumbers[2,0] = 3; slotNumbers[2,1] = 6; slotNumbers[2,2] = 1;
+              slotNumbers[2,0] = 3; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
+
+
+
+
+
 
              */
+
+
+
 
 
             // declare number of matching rows/columns that later will change depending on the progression of the game
@@ -99,20 +110,32 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
 
 
+
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
 
 
+
+
+
+
                 
-                 for (int col = 0; col < slotNumbers.GetLength(0); col++)
-                {
-                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
+
+                       for (int col = 0; col < slotNumbers.GetLength(0); col++)
                     {
-                        int computerChoice = random.Next(MIN, MAX + 1);
-                        slotNumbers[col, row] = computerChoice;
+                        for (int row = 0; row < slotNumbers.GetLength(1); row++)
+                        {
+                            int computerChoice = random.Next(MIN, MAX + 1);
+                            slotNumbers[col, row] = computerChoice;
+                        }
                     }
-                }
+
+
                  
+
+
+
+
 
 
 
@@ -256,21 +279,24 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     {
                         cashBox--;
                     }
-                }
+                }    
                 // +++++***** D I A G O N A L S *******++++++
                 // +++++***** L     E     F   T *******++++++
                 if(userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-                    for (int diaLeftCheck = 0; diaLeftCheck < slotNumbers.GetLength(0); diaLeftCheck++)
+                            
+                    
+                    for (int i = 0; i<slotNumbers.GetLength(0); i++) 
                     {
-
                         winningMatchFound = true;
-                        
-                        if (slotNumbers[0, 0] != slotNumbers[diaLeftCheck, diaLeftCheck++])
+                        for(int j = 0; j<slotNumbers.GetLength(1); j++)
                         {
-                            winningMatchFound = false;
-                            break;
+                            if (slotNumbers[0,0] != slotNumbers[i++ , j])
+                            {
+                                winningMatchFound = false;
+                                break;
+                            }
                         }
                     }
 
@@ -314,20 +340,31 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 // +++++***** R   I  G   H    T *******++++++
 
                 /*
-                 if (userChoiceChar == 'd')
+                
+
+                if(userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-
-                    for (int diaRighttCheck = 0; diaRighttCheck < slotNumbers.GetLength(0); diaRighttCheck++)
+                            
+                    
+                    for (int i = 0; i<slotNumbers.GetLength(0); i++) 
                     {
-
-
+                        for(int j = 0; j<slotNumbers.GetLength(1); j++)
+                        {
+                            if (slotNumbers[0,0] != slotNumbers[i++, j])
+                            {
+                                winningMatchFound = false;
+                                break;
+                            }
+                        }
                     }
 
                     if (winningMatchFound == true)
                     {
                         numberOfMatches++;
                     }
+                    
+                    
 
                     // 4 - output win / lose
 
@@ -356,7 +393,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         cashBox--;
                     }
                 }
-                 
+
+
                  */
 
 
