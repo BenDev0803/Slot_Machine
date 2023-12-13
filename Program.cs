@@ -67,22 +67,22 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
 
 
-            /*
+            
 
-               slotNumbers[0,0] = 7; slotNumbers[0,1] = 4; slotNumbers[0,2] = 8; 
-
-
-              slotNumbers[1,0] = 2; slotNumbers[1,1] = 7; slotNumbers[1,2] = 9;
+              slotNumbers[0,0] = 3; slotNumbers[0,1] = 4; slotNumbers[0,2] = 5; 
 
 
-              slotNumbers[2,0] = 3; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
+              slotNumbers[1,0] = 2; slotNumbers[1,1] = 5; slotNumbers[1,2] = 9;
 
 
+              slotNumbers[2,0] = 5; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
 
 
 
 
-             */
+
+
+             
 
 
 
@@ -96,8 +96,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             bool winningRowFound = true;
             bool winningMatchFound = true;
             bool winningColFound = true;
-            
-            
+
+
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
@@ -119,19 +119,22 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
 
 
-                
 
-                       for (int col = 0; col < slotNumbers.GetLength(0); col++)
+                /*
+                 
+                for (int col = 0; col < slotNumbers.GetLength(0); col++)
+                {
+                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
-                        for (int row = 0; row < slotNumbers.GetLength(1); row++)
-                        {
-                            int computerChoice = random.Next(MIN, MAX + 1);
-                            slotNumbers[col, row] = computerChoice;
-                        }
+                        int computerChoice = random.Next(MIN, MAX + 1);
+                        slotNumbers[col, row] = computerChoice;
                     }
-
+                }
 
                  
+                 */
+
+
 
 
 
@@ -159,8 +162,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 //----------------------------------------------------
 
                 //++++++***** R O W S *******++++
-                
-                 if (userChoiceChar == ROWS_CHAR) 
+
+                if (userChoiceChar == ROWS_CHAR)
                 {
                     // 3 - check if numbers of a row are all the same
 
@@ -202,24 +205,25 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     if (winningRowFound == true)
                     {
-                    cashBox++;
+                        cashBox++;
                     }
-                    else if (numberOfMatchingRows == 2){
-                    cashBox += BONUS_WIN; 
+                    else if (numberOfMatchingRows == 2)
+                    {
+                        cashBox += BONUS_WIN;
                     }
                     else if (numberOfMatchingRows == 3)
                     {
-                    cashBox += (BONUS_WIN * 3);
+                        cashBox += (BONUS_WIN * 3);
                     }
                     else
                     {
-                    cashBox--;
+                        cashBox--;
                     }
                 }
-                 
-                 // ++++++***** C O L U M N S *****+++++++
-                
-                if (userChoiceChar == COLUMNS_CHAR) 
+
+                // ++++++***** C O L U M N S *****+++++++
+
+                if (userChoiceChar == COLUMNS_CHAR)
                 {
                     // 3 - check if numbers of a row are all the same
 
@@ -232,17 +236,17 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                         for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
                         {
-                            if (slotNumbers[0,colCheck] != slotNumbers[rowCheck,colCheck])
+                            if (slotNumbers[0, colCheck] != slotNumbers[rowCheck, colCheck])
                             {
-                              winningColFound = false;
-                              break;
+                                winningColFound = false;
+                                break;
                             }
                         }
 
                         //handling of gameStatus      
 
-                        
-                         if (winningColFound)
+
+                        if (winningColFound)
                         {
                             numberOfMatchingColumns++;
                         }
@@ -279,33 +283,35 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     {
                         cashBox--;
                     }
-                }    
+                }
                 // +++++***** D I A G O N A L S *******++++++
                 // +++++***** L     E     F   T *******++++++
-                if(userChoiceChar == DIA_CHAR)
+
+                /*
+                  if (userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-                            
-                    
-                    for (int i = 0; i<slotNumbers.GetLength(0); i++) 
+
+
+                    for (int i = 0; i < slotNumbers.GetLength(0); i++)
                     {
                         winningMatchFound = true;
-                        for(int j = 0; j<slotNumbers.GetLength(1); j++)
-                        {
-                            if (slotNumbers[0,0] != slotNumbers[i++ , j])
+                        
+                            if (slotNumbers[0, 0] != slotNumbers[i, i])
                             {
                                 winningMatchFound = false;
                                 break;
                             }
-                        }
+                        
                     }
+                    
 
                     if (winningMatchFound == true)
                     {
                         numberOfMatches++;
                     }
-                    
-                    
+
+
 
                     // 4 - output win / lose
 
@@ -334,29 +340,40 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         cashBox--;
                     }
                 }
+                 
+                 */
 
 
                 // +++++***** D I A G O N A L S *******++++++
                 // +++++***** R   I  G   H    T *******++++++
 
-                /*
-                
 
-                if(userChoiceChar == DIA_CHAR)
+
+
+                if (userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
                             
                     
-                    for (int i = 0; i<slotNumbers.GetLength(0); i++) 
+                    for (int i = 0; i < slotNumbers.GetLength(0); i++) 
                     {
-                        for(int j = 0; j<slotNumbers.GetLength(1); j++)
+                        for (int j = 0; j < slotNumbers.GetLength(1); j++)
                         {
-                            if (slotNumbers[0,0] != slotNumbers[i++, j])
+                            if (slotNumbers[0,2] != slotNumbers[1,1] && slotNumbers[1,1] != slotNumbers[2, 0])
                             {
                                 winningMatchFound = false;
                                 break;
                             }
                         }
+                        /*
+                         if (slotNumbers.Length - 1 != slotNumbers[i,i])
+                            {
+                            winningMatchFound = false;
+                            break;
+
+                            }
+
+                         */
                     }
 
                     if (winningMatchFound == true)
@@ -395,7 +412,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
 
 
-                 */
+                 
 
 
                 //final part of game
@@ -414,7 +431,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     Console.WriteLine(userChoiceText);
                     ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
                     Char userChoiceNumberChar = userNumberChoice.KeyChar;
-                    
+
 
                 }
 
