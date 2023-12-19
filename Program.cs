@@ -72,10 +72,10 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
               slotNumbers[0,0] = 3; slotNumbers[0,1] = 4; slotNumbers[0,2] = 5; 
 
 
-              slotNumbers[1,0] = 2; slotNumbers[1,1] = 3; slotNumbers[1,2] = 9;
+              slotNumbers[1,0] = 2; slotNumbers[1,1] = 5; slotNumbers[1,2] = 9;
 
 
-              slotNumbers[2,0] = 9; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
+              slotNumbers[2,0] = 5; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
 
 
 
@@ -355,32 +355,22 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
-
                     
-                    Console.WriteLine(slotNumbers[0, slotNumbers.GetLength(0) - 1]);
-                    Console.WriteLine(slotNumbers[1, slotNumbers.GetLength(0) - 2]);
-                    Console.WriteLine(slotNumbers[2, slotNumbers.GetLength(0) - 3]);
-                    Console.WriteLine("******++++--------------+++++*****");
-                     
-
-
 
                     for (int i = 0; i < slotNumbers.GetLength(0); i++)
                     {
-                        Console.WriteLine(slotNumbers[i, slotNumbers.GetLength(0) -1]);                        
-                        
-
-
-
-
+                        if (slotNumbers[0, slotNumbers.GetLength(0)- 1] != slotNumbers[i, slotNumbers.GetLength(0) - i - 1])
+                        {
+                            winningMatchFound = false;
+                            break;
+                        }
                     }
 
                     if (winningMatchFound == true)
+
                     {
                         numberOfMatches++;
                     }
-                    
-                    
 
                     // 4 - output win / lose
 
