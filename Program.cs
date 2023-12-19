@@ -65,10 +65,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             // ----- debugging code -----
 
-
-
-            
-
               slotNumbers[0,0] = 3; slotNumbers[0,1] = 4; slotNumbers[0,2] = 5; 
 
 
@@ -76,17 +72,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
 
               slotNumbers[2,0] = 5; slotNumbers[2,1] = 6; slotNumbers[2,2] = 7;
-
-
-
-
-
-
-             
-
-
-
-
 
             // declare number of matching rows/columns that later will change depending on the progression of the game
             int numberOfMatchingRows = 0;
@@ -108,17 +93,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 numberOfMatchingColumns = 0; // reset winning column count
                 numberOfMatches = 0;
 
-
-
-
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
-
-
-
-
-
-
 
                 /*
                  
@@ -131,17 +107,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                 }
 
-                 
                  */
-
-
-
-
-
-
-
-
-
 
                 //-----------------------------------------------------
 
@@ -288,7 +254,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 // +++++***** L     E     F   T *******++++++
 
                 /*
-                  if (userChoiceChar == DIA_CHAR)
+                if (userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
 
@@ -302,7 +268,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                                 winningMatchFound = false;
                                 break;
                             }
-                        
                     }
                     
 
@@ -340,22 +305,13 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         cashBox--;
                     }
                 }
-                 
-                 */
-
-
+                */
                 // +++++***** D I A G O N A L S *******++++++
                 // +++++***** R   I  G   H    T *******++++++
 
-
-               
-
-                
                  if (userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-
-                    
 
                     for (int i = 0; i < slotNumbers.GetLength(0); i++)
                     {
@@ -399,12 +355,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         cashBox--;
                     }
                 }
-
-
-                 
-                 
-                 
-
 
                 //final part of game
 
