@@ -62,18 +62,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             Char userChoiceChar = userChoiceKeyInfo.KeyChar;
             // initialized array with the slot numbers
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
-
-
-            // ----- debugging code -----
-
-            slotNumbers[0, 0] = 5; slotNumbers[0, 1] = 4; slotNumbers[0, 2] = 5;
-
-
-            slotNumbers[1, 0] = 2; slotNumbers[1, 1] = 5; slotNumbers[1, 2] = 9;
-
-
-            slotNumbers[2, 0] = 5; slotNumbers[2, 1] = 6; slotNumbers[2, 2] = 5;
-
             // declare number of matching rows/columns that later will change depending on the progression of the game
             int numberOfMatchingRows = 0;
             int numberOfMatchingColumns = 0;
@@ -98,8 +86,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
 
-                /*
-                 
                 for (int col = 0; col < slotNumbers.GetLength(0); col++)
                 {
                     for (int row = 0; row < slotNumbers.GetLength(1); row++)
@@ -108,9 +94,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         slotNumbers[col, row] = computerChoice;
                     }
                 }
-
-                 */
-
                 //-----------------------------------------------------
 
                 // 2 - display array in rows and columns
@@ -259,24 +242,24 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
                     // +++++***** L     E     F   T *******++++++
-                    for (int i = 0; i < slotNumbers.GetLength(0); i++)
+                    for (int diaLeft = 0; diaLeft < slotNumbers.GetLength(0); diaLeft++)
                     {
                         winningMatchFoundLeft = true;
 
-                        if (slotNumbers[0, 0] != slotNumbers[i, i])
+                        if (slotNumbers[0, 0] != slotNumbers[diaLeft, diaLeft])
                         {
                             winningMatchFoundLeft = false;
                             break;
                         }
                     }
                     // +++++***** R   I  G   H    T *******++++++
-                    for (int i = 0; i < slotNumbers.GetLength(1); i++)
+                    for (int diaRight = 0; diaRight < slotNumbers.GetLength(1); diaRight++)
                     {
                         winningMatchFoundRight = true;
 
-                        int columnIndex = slotNumbers.GetLength(1) - i - 1;
+                        int columnIndex = slotNumbers.GetLength(1) - diaRight - 1;
 
-                        if (slotNumbers[0, slotNumbers.GetLength(1) - 1] != slotNumbers[i, columnIndex])
+                        if (slotNumbers[0, slotNumbers.GetLength(1) - 1] != slotNumbers[diaRight, columnIndex])
                         {
                             winningMatchFoundRight = false;
                             break;
