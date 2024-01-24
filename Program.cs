@@ -154,7 +154,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     // 5 - keep track of money
 
-                    if (winningRowFound == true)
+                    if (winningRowFound)
                     {
                         cashBox++;
                     }
