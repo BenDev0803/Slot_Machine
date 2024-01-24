@@ -293,11 +293,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     // 5 - keep track of money
 
-                    if (winningMatchFoundLeft == true)
-                    {
-                        cashBox++;
-                    }
-                    if (winningMatchFoundRight == true)
+                    if (winningMatchFoundLeft && winningMatchFoundRight == true)
                     {
                         cashBox++;
                     }
