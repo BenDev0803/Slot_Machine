@@ -37,7 +37,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // declare numbers of rows and columns
             const int ROWS = 3;
             const int COLUMNS = 3;
+            const int DIAGONALS = 3;           
             //declare range of numbers that should be displayed randomly
+
             const int MAX = 9;
             const int MIN = 1;
             // declare bonus win for multiple matching rows/columns
@@ -158,13 +160,13 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     {
                         cashBox++;
                     }
-                    else if (numberOfMatchingRows == 2)
+                    else if (numberOfMatchingRows == ROWS - 1)
                     {
                         cashBox += BONUS_WIN;
                     }
-                    else if (numberOfMatchingRows == 3)
+                    else if (numberOfMatchingRows == ROWS)
                     {
-                        cashBox += (BONUS_WIN * 3);
+                        cashBox += (BONUS_WIN * ROWS);
                     }
                     else
                     {
@@ -221,13 +223,13 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     {
                         cashBox++;
                     }
-                    else if (numberOfMatchingColumns == 2)
+                    else if (numberOfMatchingColumns == COLUMNS -1)
                     {
                         cashBox += BONUS_WIN;
                     }
-                    else if (numberOfMatchingColumns == 3)
+                    else if (numberOfMatchingColumns == COLUMNS)
                     {
-                        cashBox += (BONUS_WIN * 3);
+                        cashBox += (BONUS_WIN * COLUMNS);
 
                     }
                     else
@@ -299,9 +301,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     {
                         cashBox++;
                     }
-                    else if (numberOfMatches == 2)
+                    else if (numberOfMatches == DIAGONALS -1)
                     {
-                        cashBox += BONUS_WIN * 3;
+                        cashBox += BONUS_WIN * DIAGONALS;
                     }
                     else
                     {
