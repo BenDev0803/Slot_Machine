@@ -24,6 +24,7 @@ As for the mechanism to determine what the wheels produce per spin, use a random
 
 
 using System;
+using System.Linq.Expressions;
 using System.Runtime.Serialization.Formatters;
 using System.Security.Cryptography;
 using System.Text;
@@ -37,7 +38,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // declare numbers of rows and columns
             const int ROWS = 3;
             const int COLUMNS = 3;
-            const int DIAGONALS = 3;           
+            const int DIAGONALS = 2;
             //declare range of numbers that should be displayed randomly
 
             const int MAX = 9;
@@ -180,15 +181,12 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 if (userChoiceChar == COLUMNS_CHAR)
                 {
-                    // 3 - check if numbers of a row are all the same
-
+                    /* 3 - check if numbers of a row are all the same */
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-
                     for (int colCheck = 0; colCheck < slotNumbers.GetLength(0); colCheck++)
                     {
-                        // switch on again
+                        /* switch on again*/
                         winningColFound = true;
-
                         for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
                         {
                             if (slotNumbers[0, colCheck] != slotNumbers[rowCheck, colCheck])
@@ -221,48 +219,41 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     // 5 - keep track of money
 
-                    if (winningColFound == true)
+                    switch (numberOfMatchingColumns)
                     {
-                        cashBox++;
-                    }
-                    else if (numberOfMatchingColumns == COLUMNS -1)
-                    {
-                        cashBox += BONUS_WIN;
-                    }
-                    else if (numberOfMatchingColumns == COLUMNS)
-                    {
-                        cashBox += (BONUS_WIN * COLUMNS);
-
-                    }
-                    else
-                    {
-                        cashBox--;
+                        case COLUMNS - COLUMNS:
+                            cashBox--;
+                            break;
+                        case COLUMNS - 1:
+                            cashBox += BONUS_WIN;
+                            break;
+                        case COLUMNS:
+                            cashBox += (BONUS_WIN * COLUMNS);
+                            break;
+                        default:
+                            cashBox++;
+                            break;
                     }
                 }
-
-
-                // +++++***** D I A G O N A L S *******++++++
+                /* +++++***** D I A G O N A L S *******++++++*/
                 if (userChoiceChar == DIA_CHAR)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-                    // +++++***** L     E     F   T *******++++++
+                    /*/ +++++***** L     E     F   T *******++++++*/
                     for (int diaLeft = 0; diaLeft < slotNumbers.GetLength(0); diaLeft++)
                     {
                         winningMatchFoundLeft = true;
-
                         if (slotNumbers[0, 0] != slotNumbers[diaLeft, diaLeft])
                         {
                             winningMatchFoundLeft = false;
                             break;
                         }
                     }
-                    // +++++***** R   I  G   H    T *******++++++
+                    /*/ +++++***** R   I  G   H    T *******++++++*/
                     for (int diaRight = 0; diaRight < slotNumbers.GetLength(1); diaRight++)
                     {
                         winningMatchFoundRight = true;
-
                         int columnIndex = slotNumbers.GetLength(1) - diaRight - 1;
-
                         if (slotNumbers[0, slotNumbers.GetLength(1) - 1] != slotNumbers[diaRight, columnIndex])
                         {
                             winningMatchFoundRight = false;
@@ -271,86 +262,78 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
 
 
-                    if (winningMatchFoundLeft == true)
-
+                    if (winningMatchFoundLeft || winningMatchFoundRight == true)
                     {
                         numberOfMatches++;
                     }
-                    if (winningMatchFoundRight == true)
 
-                    {
-                        numberOfMatches++;
-                    }
-                    // 4 - output win / lose
-
+                    /*/ 4 - output win / lose*/
                     if (numberOfMatches == 0)
                     {
                         Console.WriteLine("You Lose!");
-
                     }
                     else
                     {
                         Console.WriteLine($"You Win! number of matching diagonals: {numberOfMatches} ");
                     }
-
-                    // 5 - keep track of money
-
-                    if (winningMatchFoundLeft && winningMatchFoundRight == true)
+                    /*/ 5 - keep track of money*/
+                    switch (numberOfMatches)
                     {
-                        cashBox++;
-                    }
-                    else if (numberOfMatches == DIAGONALS -1)
-                    {
-                        cashBox += BONUS_WIN * DIAGONALS;
-                    }
-                    else
-                    {
-                        cashBox--;
+                        case DIAGONALS:
+                            cashBox += BONUS_WIN * DIAGONALS;
+                            break;
+                        case DIAGONALS - DIAGONALS:
+                            cashBox--;
+                            break;
+                        default:
+                            cashBox++;
+                            break;
                     }
                 }
 
-                //final part of game
+                    /*/final part of game*/
 
-                ConsoleKeyInfo userAnswer = Console.ReadKey(true);
-                Char useranswerChar = userAnswer.KeyChar;
 
-                if (cashBox > 0)
-                {
+                    ConsoleKeyInfo userAnswer = Console.ReadKey(true);
+                    Char useranswerChar = userAnswer.KeyChar;
 
-                    Console.WriteLine("\nDo you want to play again? y/n");
-                    Console.ReadKey(true);
-
-                    if (useranswerChar == NO_CHAR)
+                    if (cashBox > 0)
                     {
-                        break;
+
+                        Console.WriteLine("\nDo you want to play again? y/n");
+                        Console.ReadKey(true);
+
+                        if (useranswerChar == NO_CHAR)
+                        {
+                            break;
+                        }
+                        Console.WriteLine(userChoiceText);
+                        ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
+                        userChoiceChar = userNumberChoice.KeyChar;
+
+
                     }
-                    Console.WriteLine(userChoiceText);
-                    ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
-                    userChoiceChar = userNumberChoice.KeyChar;
+                    else if (cashBox == 0)
+                    {
 
+                        Console.WriteLine("You don't have money! do you want to bet again? y/n");
 
+                        ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
+                        char userConfirmationChar = userConfirmation.KeyChar;
+
+                        if (userConfirmationChar == YES_CHAR)
+                        {
+                            Console.WriteLine($"amount that you want to bet ");
+                            int lossConfirmation = Int32.Parse(Console.ReadLine());
+                            cashBox = lossConfirmation;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    Console.Clear();
                 }
-                else if (cashBox == 0)
-                {
-
-                    Console.WriteLine("You don't have money! do you want to bet again? y/n");
-
-                    ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
-                    char userConfirmationChar = userConfirmation.KeyChar;
-
-                    if (userConfirmationChar == YES_CHAR)
-                    {
-                        Console.WriteLine($"amount that you want to bet ");
-                        int lossConfirmation = Int32.Parse(Console.ReadLine());
-                        cashBox = lossConfirmation;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                Console.Clear();
             }
         }
     }
-}
