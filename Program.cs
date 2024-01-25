@@ -44,10 +44,12 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const int MIN = 1;
             // declare bonus win for multiple matching rows/columns
             const int BONUS_WIN = 10;
-            // declare characters that user should press for choosing rows or columns
+            // declare characters that user should press for choosing rows, diagonals, columns, yes or no
             const char COLUMNS_CHAR = 'c';
             const char ROWS_CHAR = 'r';
             const char DIA_CHAR = 'd';
+            const char YES_CHAR = 'y';
+            const char NO_CHAR = 'n';
             // creates random number
             Random random = new Random();
             //game start initial statement
@@ -309,15 +311,16 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 //final part of game
 
-                string userAnswer;
+                ConsoleKeyInfo userAnswer = Console.ReadKey(true);
+                Char useranswerChar = userAnswer.KeyChar;
 
                 if (cashBox > 0)
                 {
 
                     Console.WriteLine("\nDo you want to play again? y/n");
-                    userAnswer = Console.ReadLine();
+                    Console.ReadKey(true);
 
-                    if (userAnswer == "n")
+                    if (useranswerChar == NO_CHAR)
                     {
                         break;
                     }
@@ -332,9 +335,10 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     Console.WriteLine("You don't have money! do you want to bet again? y/n");
 
-                    string userConfirmation = Console.ReadLine();
+                    ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
+                    char userConfirmationChar = userConfirmation.KeyChar;
 
-                    if (userConfirmation == "y")
+                    if (userConfirmationChar == YES_CHAR)
                     {
                         Console.WriteLine($"amount that you want to bet ");
                         int lossConfirmation = Int32.Parse(Console.ReadLine());
