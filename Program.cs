@@ -313,7 +313,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
 
                     }
-                    else if (cashBox == 0)
+                    else
                     {
 
                         Console.WriteLine("You don't have money! do you want to bet again? y/n");
@@ -321,7 +321,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
                         char userConfirmationChar = userConfirmation.KeyChar;
 
-                        if (userConfirmationChar == YES_CHAR)
+                        if (userConfirmationChar == YES_CHAR) 
+
                         {
                             Console.WriteLine($"amount that you want to bet ");
                             int lossConfirmation = Int32.Parse(Console.ReadLine());
