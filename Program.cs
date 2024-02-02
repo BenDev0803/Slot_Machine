@@ -119,7 +119,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 //++++++***** R O W S *******++++
 
-                if (userChoiceChar == ROWS_CHAR)
+                if (ROWS_CHAR == userChoiceChar)
                 {
                     // 3 - check if numbers of a row are all the same
 
@@ -179,7 +179,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 // ++++++***** C O L U M N S *****+++++++
 
-                if (userChoiceChar == COLUMNS_CHAR)
+                if (COLUMNS_CHAR == userChoiceChar)
                 {
                     /* 3 - check if numbers of a row are all the same */
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
@@ -236,7 +236,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                 }
                 /* +++++***** D I A G O N A L S *******++++++*/
-                if (userChoiceChar == DIA_CHAR)
+                if (DIA_CHAR == userChoiceChar)
                 {
                     Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
                     /*/ +++++***** L     E     F   T *******++++++*/
