@@ -71,14 +71,13 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // initialized array with the slot numbers
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             // declare number of matching rows/columns that later will change depending on the progression of the game
-            int numberOfMatchingRows = 0;
-            int numberOfMatchingColumns = 0;
+
             int numberOfMatches = 0;
 
-            bool winningRowFound = true;
+            bool winningMatchFound = true;
             bool winningMatchFoundLeft = true;
             bool winningMatchFoundRight = true;
-            bool winningColFound = true;
+            
 
 
             Console.Write($"you bet {userBet}$ ");
@@ -87,9 +86,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
-                numberOfMatchingRows = 0; //reset wining row count
-                numberOfMatchingColumns = 0; // reset winning column count
-                numberOfMatches = 0;
+                numberOfMatches = 0; // reset number of matches
 
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
@@ -131,46 +128,46 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
                     {
                         // switch on again
-                        winningRowFound = true;
+                        winningMatchFound = true;
 
                         for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
                         {
                             if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck])
                             {
-                                winningRowFound = false;
+                                winningMatchFound = false;
                                 break;
                             }
                         }
 
                         //handling of gameStatus      
-                        if (winningRowFound)
+                        if (winningMatchFound)
                         {
-                            numberOfMatchingRows++;
+                            numberOfMatches++;
                         }
                     }
 
                     // 4 - output win / lose
 
-                    if (numberOfMatchingRows == 0)
+                    if (numberOfMatches == 0)
                     {
                         Console.WriteLine("You Lose!");
                     }
                     else
                     {
-                        Console.WriteLine($"You Win! number of matching rows: {numberOfMatchingRows} ");
+                        Console.WriteLine($"You Win! number of matching rows: {numberOfMatches} ");
                     }
 
                     // 5 - keep track of money
 
-                    if (winningRowFound)
+                    if (winningMatchFound)
                     {
                         cashBox += CASHBOX_WIN;
                     }
-                    else if (numberOfMatchingRows == ROWS - 1)
+                    else if (numberOfMatches == ROWS - 1)
                     {
                         cashBox += BONUS_WIN;
                     }
-                    else if (numberOfMatchingRows == ROWS)
+                    else if (numberOfMatches == ROWS)
                     {
                         cashBox += (BONUS_WIN * ROWS);
                     }
@@ -189,12 +186,12 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     for (int colCheck = 0; colCheck < slotNumbers.GetLength(0); colCheck++)
                     {
                         /* switch on again*/
-                        winningColFound = true;
+                        winningMatchFound = true;
                         for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
                         {
                             if (slotNumbers[0, colCheck] != slotNumbers[rowCheck, colCheck])
                             {
-                                winningColFound = false;
+                                winningMatchFound = false;
                                 break;
                             }
                         }
@@ -202,27 +199,27 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         //handling of gameStatus      
 
 
-                        if (winningColFound)
+                        if (winningMatchFound)
                         {
-                            numberOfMatchingColumns++;
+                            numberOfMatches++;
                         }
                     }
 
                     // 4 - output win / lose
 
-                    if (numberOfMatchingColumns == 0)
+                    if (numberOfMatches == 0)
                     {
                         Console.WriteLine("You Lose!");
 
                     }
                     else
                     {
-                        Console.WriteLine($"You Win! number of matching columns: {numberOfMatchingColumns} ");
+                        Console.WriteLine($"You Win! number of matching columns: {numberOfMatches} ");
                     }
 
                     // 5 - keep track of money
 
-                    switch (numberOfMatchingColumns)
+                    switch (numberOfMatches)
                     {
                         case COLUMNS - COLUMNS:
                             cashBox-= CASHBOX_LOSS;
