@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Slot_Machine
+{
+    public static class SlotMachineMethods
+    {
+        public static void rows()
+        {
+
+        }
+    }
+}

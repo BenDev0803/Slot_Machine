@@ -40,7 +40,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const int COLUMNS = 3;
             const int DIAGONALS = 2;
             //declare range of numbers that should be displayed randomly
-
             const int MAX = 9;
             const int MIN = 1;
             // declare bonus win for multiple matching rows/columns
@@ -51,6 +50,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const char DIA_CHAR = 'd';
             const char YES_CHAR = 'y';
             const char NO_CHAR = 'n';
+            // cashbox win / cashbox loss constants
+            const int CASHBOX_WIN = 1;
+            const int CASHBOX_LOSS = -1;
             // creates random number
             Random random = new Random();
             //game start initial statement
@@ -59,6 +61,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             //the user here inputs the amount of money that wants to bet
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             int cashBox = userBet;
+            
             // game start second statement
             string userChoiceText = "do you want to play rows (r), columns (c) or diagonals (d)?";
             Console.WriteLine(userChoiceText);
@@ -161,7 +164,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     if (winningRowFound)
                     {
-                        cashBox++;
+                        cashBox += CASHBOX_WIN;
                     }
                     else if (numberOfMatchingRows == ROWS - 1)
                     {
@@ -173,7 +176,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
                     else
                     {
-                        cashBox--;
+                        cashBox -= CASHBOX_LOSS;
                     }
                 }
 
@@ -222,7 +225,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     switch (numberOfMatchingColumns)
                     {
                         case COLUMNS - COLUMNS:
-                            cashBox--;
+                            cashBox-= CASHBOX_LOSS;
                             break;
                         case COLUMNS - 1:
                             cashBox += BONUS_WIN;
@@ -231,7 +234,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                             cashBox += (BONUS_WIN * COLUMNS);
                             break;
                         default:
-                            cashBox++;
+                            cashBox += CASHBOX_WIN;
                             break;
                     }
                 }
@@ -283,10 +286,10 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                             cashBox += BONUS_WIN * DIAGONALS;
                             break;
                         case DIAGONALS - DIAGONALS:
-                            cashBox--;
+                            cashBox -= CASHBOX_LOSS;
                             break;
                         default:
-                            cashBox++;
+                            cashBox += CASHBOX_WIN;
                             break;
                     }
                 }
