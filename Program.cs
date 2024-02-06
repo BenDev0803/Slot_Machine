@@ -24,6 +24,7 @@ As for the mechanism to determine what the wheels produce per spin, use a random
 
 
 using System;
+using System.ComponentModel.Design;
 using System.Linq.Expressions;
 using System.Runtime.Serialization.Formatters;
 using System.Security.Cryptography;
@@ -51,8 +52,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             const char YES_CHAR = 'y';
             const char NO_CHAR = 'n';
             // cashbox win / cashbox loss constants
-            const int CASHBOX_WIN = 1;
+            const int CASHBOX_WIN = 2;
             const int CASHBOX_LOSS = -1;
+            const int PLAYING_COST = -1;
             // creates random number
             Random random = new Random();
             //game start initial statement
@@ -78,8 +80,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             bool winningMatchFoundLeft = true;
             bool winningMatchFoundRight = true;
             
-
-
             Console.Write($"you bet {userBet}$ ");
             Console.WriteLine($"your total amount of money is {cashBox}$");
 
@@ -158,8 +158,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     }
 
                     // 5 - keep track of money
-
-                    if (winningMatchFound)
+                    if(numberOfMatches > 0)
                     {
                         cashBox += CASHBOX_WIN;
                     }
@@ -286,7 +285,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                             cashBox -= CASHBOX_LOSS;
                             break;
                         default:
-                            cashBox += CASHBOX_WIN;
+                            cashBox -= CASHBOX_WIN;
                             break;
                     }
                 }
@@ -306,6 +305,10 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                         if (useranswerChar == NO_CHAR)
                         {
                             break;
+                        }
+                        else
+                        {
+                        cashBox -= PLAYING_COST;
                         }
                         Console.WriteLine(userChoiceText);
                         ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
