@@ -30,18 +30,19 @@ namespace Slot_Machine
         public static void printYouBet(string youBet) { Console.WriteLine(youBet); }  
         public static void printTotalAmountMoney(string totalAmountMoney) { Console.WriteLine(totalAmountMoney); }
 
-        public static void displayArrayInRowsAndColumns(string[] arrayInRowsAndColumns)
+        public static void displayArrayInRowsAndColumns(int[] slotNumbers)
         {
             for (int col = 0; col < slotNumbers.GetLength(0); col++)
             {
+                char arrayInRowsNColumns = ' ';
                 Console.WriteLine();
                 for (int row = 0; row < slotNumbers.GetLength(1); row++)
                 {
-                    Console.Write(' ');
+                    Console.Write(arrayInRowsNColumns);
                     Console.Write(slotNumbers[col, row]);
-                    Console.Write(' ');
+                    Console.Write(arrayInRowsNColumns);
                 }
-                Console.Write(' ');
+                Console.Write(arrayInRowsNColumns);
             }
         }
 
