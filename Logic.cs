@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Slot_Machine
 {
-    internal class Logic
+    public static class Logic
     {
-        public Logic() 
-        {
-            //++++++***** R O W S *******++++
 
+        public static void rowLogic(int[,] slotNumbers)
+        {
             if (ROWS_CHAR == userChoiceChar)
             {
                 // 3 - check if numbers of a row are all the same
@@ -64,8 +64,11 @@ namespace Slot_Machine
                     cashBox -= CASHBOX_LOSS;
                 }
             }
+        }
 
-            /* +++++***** D I A G O N A L S *******++++++*/
+
+        public static void diagonalsLogic(int[,] slotNumbers)
+        {
             if (DIA_CHAR == userChoiceChar)
             {
                 Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
@@ -120,8 +123,10 @@ namespace Slot_Machine
                         break;
                 }
             }
+        }
 
-            // ++++++***** C O L U M N S *****+++++++
+        public static void columnsLogic(int[,] slotNumbers)
+        {
 
             if (COLUMNS_CHAR == userChoiceChar)
             {
@@ -179,11 +184,11 @@ namespace Slot_Machine
                         break;
                 }
             }
+        }
 
 
-            /*/final part of game*/
-
-
+        public static void finalLogic(int[,] slotNumbers)
+        {
             ConsoleKeyInfo userAnswer = Console.ReadKey(true);
             Char useranswerChar = userAnswer.KeyChar;
 
@@ -228,8 +233,8 @@ namespace Slot_Machine
                 }
             }
             Console.Clear();
-
-
         }
+
+
     }
 }
