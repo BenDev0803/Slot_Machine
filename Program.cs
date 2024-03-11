@@ -1,29 +1,5 @@
-﻿/*
-Design a game where the user can play a make believe slot machine. 
-The user will be asked to make a wager to play various lines in a 3 x 3 grid. 
-They can play center line, all three horizontal lines, all vertical lines and diagonals.
-For instance the user can enter $3 dollars and play all three horizontal lines. 
-If the top line hits a winning combination, they earn $1 dollar for that line.
-
-Tips: The mention of a grid here should be a dead giveaway that you need a 2D array. 
-You will also need functionality that can check a horizontal line, a vertical line and a diagonal. 
-Depending on the number of lines they play, you may need to execute all three of these statements one or multiple times to look for winning lines. 
-If they are playing three lines, you would call your horizontal line check function three times... 
-one for the top row, one for the center row and one for the bottom row. 
-Each of these row checking algorithms will then need to look for winning combinations. 
-The result is then dumped into the player’s money total. 
-As for the mechanism to determine what the wheels produce per spin, use a random number generating function.
-
-- fill array with random slotNumbers
-- output that array
-- check if middle row is all the same
-- output win / lose
-- keep track of money
- */
-
-
-using System;
-
+﻿using System;
+using Slot_Machine;
 
 namespace Slot_Machine // Note: actual namespace depends on the project name.
 {
@@ -54,14 +30,17 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             Random random = new Random();
             //game start initial statement
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
-            Console.WriteLine(initialStatement);
+            UI_Design.printInitialStatement(initialStatement);
             //the user here inputs the amount of money that wants to bet
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
+            string youBet = "you bet " + userBet;
+            UI_Design.printYouBet(youBet);
             int cashBox = userBet;
-            
+            string totalAmountMoney = "your total amount of money is " + cashBox;
+            UI_Design.printTotalAmountMoney(totalAmountMoney);
             // game start second statement
             string userChoiceText = "do you want to play rows (r), columns (c) or diagonals (d)?";
-            Console.WriteLine(userChoiceText);
+            UI_Design.printuserChoiceText(userChoiceText);
             // read the input from the user
             ConsoleKeyInfo userChoiceKeyInfo = Console.ReadKey(true);
             Char userChoiceChar = userChoiceKeyInfo.KeyChar;
@@ -75,8 +54,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             bool winningMatchFoundLeft = true;
             bool winningMatchFoundRight = true;
             
-            Console.Write($"you bet {userBet}$ ");
-            Console.WriteLine($"your total amount of money is {cashBox}$");
+            
 
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
@@ -96,21 +74,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 //-----------------------------------------------------
 
-                // 2 - display array in rows and columns
-                //-----------------------------------------------------
-                for (int col = 0; col < slotNumbers.GetLength(0); col++)
-                {
-                    Console.WriteLine();
-
-                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
-                    {
-                        Console.Write(' ');
-                        Console.Write(slotNumbers[col, row]);
-                        Console.Write(' ');
-                    }
-                    Console.Write(' ');
-                }
-                //----------------------------------------------------                  
+                
                 }
             }
         }
