@@ -1,5 +1,4 @@
 ﻿using System;
-using Slot_Machine;
 
 namespace Slot_Machine // Note: actual namespace depends on the project name.
 {
@@ -53,8 +52,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             bool winningMatchFound = true;
             bool winningMatchFoundLeft = true;
             bool winningMatchFoundRight = true;
-            
-            
+
+
 
 
             while (true) // while loop is used for repeating a block of code until the user blocks it
@@ -74,8 +73,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 //-----------------------------------------------------
 
-                
-                }
+                UI_Design.displayArrayInRowsAndColumns(slotNumbers);
             }
         }
     }
+}
