@@ -28,8 +28,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // creates random number
             Random random = new Random();
             //game start initial statement
-            string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
-            UI_Design.printInitialStatement(initialStatement);
+            UI_Design.printInitialStatement();
             //the user here inputs the amount of money that wants to bet
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             string youBet = "you bet " + userBet;
@@ -48,18 +47,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // declare number of matching rows/columns that later will change depending on the progression of the game
 
             int numberOfMatches = 0;
-
             bool winningMatchFound = true;
             bool winningMatchFoundLeft = true;
             bool winningMatchFoundRight = true;
 
-
-
-
             while (true) // while loop is used for repeating a block of code until the user blocks it
             {
                 numberOfMatches = 0; // reset number of matches
-
+                
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
 
@@ -74,6 +69,15 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 //-----------------------------------------------------
 
                 UI_Design.displayArrayInRowsAndColumns(slotNumbers);
+
+                //block that decides if there is a row win or not
+                //if gamemode ....
+                if (ROWS_CHAR == userChoiceChar)
+                {
+                    Logic.FindNumberOfMatchingRows(slotNumbers);
+                }
+                //call ui method for the user info PrintResult(numberofmatches);
+
             }
         }
     }

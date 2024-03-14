@@ -5,7 +5,10 @@ namespace Slot_Machine
     public static class UI_Design
     {
 
-        public static void printInitialStatement(string initialStatement){Console.WriteLine(initialStatement);}
+        public static void printInitialStatement(){
+            string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
+            Console.WriteLine(initialStatement);
+        }
         public static void printuserChoiceText(string userChoiceText) { Console.WriteLine(userChoiceText); }
         public static void printYouBet(string youBet) { Console.WriteLine(youBet); }  
         public static void printTotalAmountMoney(string totalAmountMoney) { Console.WriteLine(totalAmountMoney); }
