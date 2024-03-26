@@ -5,7 +5,23 @@ namespace Slot_Machine
 {
     public static class Logic
     {
+        // cashbox win / cashbox loss constants
+        const int CASHBOX_WIN = 2;
+        const int CASHBOX_LOSS = -1;
+        const int PLAYING_COST = -1;
+        const int BONUS_WIN = 10;
+        const int ROWS = 3;
+        const int COLUMNS = 3;
+        const int DIAGONALS = 2;
 
+        public class numberOfMatchesClass 
+        {
+            int numberofMatches = 0;
+
+        }
+
+
+        // 3 - check if numbers of a row are all the same-
         public static int FindNumberOfMatchingRows(int[,] slotNumbers)
         {
             bool winningMatchFound = false;
@@ -33,73 +49,78 @@ namespace Slot_Machine
             }
             return numberOfMatches;
         }
-        public static void outputWinLose(numberOfMatches)
+
+        // 5 - keep track of money (depending on number of matches calculate cash available)
+        public static int CalcRowsWinnings(int numOfMatches)
         {
-            if (numberOfMatches == 0)
+         //   int amount = 0;
+
+            if (numOfMatches > 0)
             {
-                Console.WriteLine("You Lose!");
+                return CASHBOX_WIN;
+            }
+            else if (numOfMatches == ROWS - 1)
+            {
+                return BONUS_WIN;
+            }
+            else if (numOfMatches == ROWS)
+            {
+                return (BONUS_WIN * ROWS);
             }
             else
             {
-                Console.WriteLine($"You Win! number of matching rows: {numberOfMatches} ");
+                return -CASHBOX_LOSS;
             }
+
+            //return amount;
         }
-        //    bool winningMatchFound = false;
-        //    int numberOfMatches = 0;
-        //    if (ROWS_CHAR == userChoiceChar)
-        //    {
-        //        // 3 - check if numbers of a row are all the same
 
-        //        Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
+        public static void ColumnsLogic(int[,] slotNumbers)
+        {
+            bool winningMatchFound = false;
+            int numberOfMatches = 0;
 
-        //        for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(0); rowCheck++)
-        //        {
-        //            // switch on again
-        //            winningMatchFound = true;
+            /* 3 - check if numbers of a row are all the same */
+            for (int colCheck = 0; colCheck < slotNumbers.GetLength(0); colCheck++)
+                {
+                    /* switch on again*/
+                    winningMatchFound = true;
+                    for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
+                    {
+                        if (slotNumbers[0, colCheck] != slotNumbers[rowCheck, colCheck])
+                        {
+                            winningMatchFound = false;
+                            break;
+                        }
+                    }
+                    //handling of gameStatus 
+                    if (winningMatchFound)
+                    {
+                        numberOfMatches++;
+                    }
+                }
+        }
 
-        //            for (int colCheck = 0; colCheck < slotNumbers.GetLength(1); colCheck++)
-        //            {
-        //                if (slotNumbers[rowCheck, 0] != slotNumbers[rowCheck, colCheck])
-        //                {
-        //                    winningMatchFound = false;
-        //                    break;
-        //                }
-        //            }
-
-        //            //handling of gameStatus      
-        //            if (winningMatchFound)
-        //            {
-        //                numberOfMatches++;
-        //            }
-        //        }
-
-        //        // 4 - output win / lose
-
-        //        
-
-        //        // 5 - keep track of money
-        //        if (numberOfMatches > 0)
-        //        {
-        //            cashBox += CASHBOX_WIN;
-        //        }
-        //        else if (numberOfMatches == ROWS - 1)
-        //        {
-        //            cashBox += BONUS_WIN;
-        //        }
-        //        else if (numberOfMatches == ROWS)
-        //        {
-        //            cashBox += (BONUS_WIN * ROWS);
-        //        }
-        //        else
-        //        {
-        //            cashBox -= CASHBOX_LOSS;
-        //        }
-        //    }
-        //    return numberOfMatches;
-        //}
-
-
-        public static void diagonalsLogic(int[,] slotNumbers)
+        public static int CalcColumnsWinning(int numOfMatches)
+        {
+            if (numOfMatches > 0)
+            {
+                return CASHBOX_WIN;
+            }
+            else if (numOfMatches == COLUMNS - 1)
+            {
+                return BONUS_WIN;
+            }
+            else if (numOfMatches == COLUMNS)
+            {
+                return (BONUS_WIN * COLUMNS);
+            }
+            else
+            {
+                return -CASHBOX_LOSS;
+            }
+        } 
+        public static void DiagonalsLogic(int[,] slotNumbers)
         {
             if (DIA_CHAR == userChoiceChar)
             {
@@ -157,69 +178,10 @@ namespace Slot_Machine
             }
         }
 
-        public static void columnsLogic(int[,] slotNumbers)
-        {
-
-            if (COLUMNS_CHAR == userChoiceChar)
-            {
-                /* 3 - check if numbers of a row are all the same */
-                Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-                for (int colCheck = 0; colCheck < slotNumbers.GetLength(0); colCheck++)
-                {
-                    /* switch on again*/
-                    winningMatchFound = true;
-                    for (int rowCheck = 0; rowCheck < slotNumbers.GetLength(1); rowCheck++)
-                    {
-                        if (slotNumbers[0, colCheck] != slotNumbers[rowCheck, colCheck])
-                        {
-                            winningMatchFound = false;
-                            break;
-                        }
-                    }
-
-                    //handling of gameStatus      
+        
 
 
-                    if (winningMatchFound)
-                    {
-                        numberOfMatches++;
-                    }
-                }
-
-                // 4 - output win / lose
-
-                if (numberOfMatches == 0)
-                {
-                    Console.WriteLine("You Lose!");
-
-                }
-                else
-                {
-                    Console.WriteLine($"You Win! number of matching columns: {numberOfMatches} ");
-                }
-
-                // 5 - keep track of money
-
-                switch (numberOfMatches)
-                {
-                    case COLUMNS - COLUMNS:
-                        cashBox -= CASHBOX_LOSS;
-                        break;
-                    case COLUMNS - 1:
-                        cashBox += BONUS_WIN;
-                        break;
-                    case COLUMNS:
-                        cashBox += (BONUS_WIN * COLUMNS);
-                        break;
-                    default:
-                        cashBox += CASHBOX_WIN;
-                        break;
-                }
-            }
-        }
-
-
-        public static void finalLogic(int[,] slotNumbers)
+        public static void FinalLogic(int[,] slotNumbers)
         {
             ConsoleKeyInfo userAnswer = Console.ReadKey(true);
             Char useranswerChar = userAnswer.KeyChar;

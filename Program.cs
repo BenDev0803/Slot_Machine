@@ -6,42 +6,35 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            // declare numbers of rows and columns
             const int ROWS = 3;
             const int COLUMNS = 3;
-            const int DIAGONALS = 2;
             //declare range of numbers that should be displayed randomly
             const int MAX = 9;
             const int MIN = 1;
             // declare bonus win for multiple matching rows/columns
-            const int BONUS_WIN = 10;
+
             // declare characters that user should press for choosing rows, diagonals, columns, yes or no
             const char COLUMNS_CHAR = 'c';
             const char ROWS_CHAR = 'r';
             const char DIA_CHAR = 'd';
             const char YES_CHAR = 'y';
             const char NO_CHAR = 'n';
-            // cashbox win / cashbox loss constants
-            const int CASHBOX_WIN = 2;
-            const int CASHBOX_LOSS = -1;
-            const int PLAYING_COST = -1;
+
             // creates random number
             Random random = new Random();
             //game start initial statement
-            UI_Design.printInitialStatement();
+            UI_Design.PrintInitialStatement();
             //the user here inputs the amount of money that wants to bet
             int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
             string youBet = "you bet " + userBet;
-            UI_Design.printYouBet(youBet);
+            UI_Design.PrintYouBet(youBet);
             int cashBox = userBet;
             string totalAmountMoney = "your total amount of money is " + cashBox;
-            UI_Design.printTotalAmountMoney(totalAmountMoney);
+            UI_Design.PrintTotalAmountMoney(totalAmountMoney);
             // game start second statement
-            string userChoiceText = "do you want to play rows (r), columns (c) or diagonals (d)?";
-            UI_Design.printuserChoiceText(userChoiceText);
-            // read the input from the user
-            ConsoleKeyInfo userChoiceKeyInfo = Console.ReadKey(true);
-            Char userChoiceChar = userChoiceKeyInfo.KeyChar;
+            Char userChoiceChar = UI_Design.GetUserChoice();
+            UI_Design.PrintuserChoiceText();
+     
             // initialized array with the slot numbers
             int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
             // declare number of matching rows/columns that later will change depending on the progression of the game
@@ -68,7 +61,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 }
                 //-----------------------------------------------------
 
-                UI_Design.displayArrayInRowsAndColumns(slotNumbers);
+                UI_Design.DisplayArrayInRowsAndColumns(slotNumbers);
 
                 //block that decides if there is a row win or not
                 //if gamemode ....
@@ -76,7 +69,14 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     Logic.FindNumberOfMatchingRows(slotNumbers);
                 }
+
+                cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
+
                 //call ui method for the user info PrintResult(numberofmatches);
+                UI_Design.OutputWinLoseRows(numberOfMatches);
+
+                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
+
 
             }
         }
