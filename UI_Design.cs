@@ -67,6 +67,19 @@ namespace Slot_Machine
                 Console.WriteLine($"You Win! number of matching columns: {numOfMatches} ");
             }
         }
+
+        public static void OutputWinLoseDiagonals(int numOfMatches)
+        {
+            /*/ 4 - output win / lose*/
+            if (numOfMatches == 0)
+            {
+                Console.WriteLine("You Lose!");
+            }
+            else
+            {
+                Console.WriteLine($"You Win! number of matching diagonals: {numOfMatches} ");
+            }
+        }
     }
 }
 

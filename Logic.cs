@@ -75,7 +75,7 @@ namespace Slot_Machine
             //return amount;
         }
 
-        public static void ColumnsLogic(int[,] slotNumbers)
+        public static void FindNumberOfMatchingColumns(int[,] slotNumbers)
         {
             bool winningMatchFound = false;
             int numberOfMatches = 0;
@@ -120,15 +120,12 @@ namespace Slot_Machine
                 return -CASHBOX_LOSS;
             }
         } 
-        public static void DiagonalsLogic(int[,] slotNumbers)
+        public static void FindNumberOfMatchingDiagonals(int[,] slotNumbers)
         {
-            if (DIA_CHAR == userChoiceChar)
-            {
-                Console.WriteLine($"\n \nyour total amount of money is {cashBox}$");
-                /*/ +++++***** L     E     F   T *******++++++*/
+            /*/ +++++***** L     E     F   T *******++++++*/
                 for (int diaLeft = 0; diaLeft < slotNumbers.GetLength(0); diaLeft++)
                 {
-                    winningMatchFoundLeft = true;
+                    bool winningMatchFoundLeft = true;
                     if (slotNumbers[0, 0] != slotNumbers[diaLeft, diaLeft])
                     {
                         winningMatchFoundLeft = false;
@@ -138,7 +135,7 @@ namespace Slot_Machine
                 /*/ +++++***** R   I  G   H    T *******++++++*/
                 for (int diaRight = 0; diaRight < slotNumbers.GetLength(1); diaRight++)
                 {
-                    winningMatchFoundRight = true;
+                    bool winningMatchFoundRight = true;
                     int columnIndex = slotNumbers.GetLength(1) - diaRight - 1;
                     if (slotNumbers[0, slotNumbers.GetLength(1) - 1] != slotNumbers[diaRight, columnIndex])
                     {
@@ -153,82 +150,80 @@ namespace Slot_Machine
                     numberOfMatches++;
                 }
 
-                /*/ 4 - output win / lose*/
-                if (numberOfMatches == 0)
-                {
-                    Console.WriteLine("You Lose!");
-                }
-                else
-                {
-                    Console.WriteLine($"You Win! number of matching diagonals: {numberOfMatches} ");
-                }
-                /*/ 5 - keep track of money*/
-                switch (numberOfMatches)
-                {
-                    case DIAGONALS:
-                        cashBox += BONUS_WIN * DIAGONALS;
-                        break;
-                    case DIAGONALS - DIAGONALS:
-                        cashBox -= CASHBOX_LOSS;
-                        break;
-                    default:
-                        cashBox -= CASHBOX_WIN;
-                        break;
-                }
+                
+               
             }
-        }
+    }
 
-        
+    /*/ 5 - keep track of money*/
 
-
-        public static void FinalLogic(int[,] slotNumbers)
+    public static int CalcDiaWinnings(int numOfMatches)
+    {
+        switch (numOfMatches)
         {
-            ConsoleKeyInfo userAnswer = Console.ReadKey(true);
-            Char useranswerChar = userAnswer.KeyChar;
+            case DIAGONALS:
+                cashBox += BONUS_WIN * DIAGONALS;
+                break;
+            case DIAGONALS - DIAGONALS:
+                cashBox -= CASHBOX_LOSS;
+                break;
+            default:
+                cashBox -= CASHBOX_WIN;
+                break;
+        }
+    }
 
-            if (cashBox > 0)
+    public static void FinalLogic(int[,] slotNumbers)
+    {
+        ConsoleKeyInfo userAnswer = Console.ReadKey(true);
+        Char useranswerChar = userAnswer.KeyChar;
+
+        if (cashBox > 0)
+        {
+
+            Console.WriteLine("\nDo you want to play again? y/n");
+            Console.ReadKey(true);
+
+            if (useranswerChar == NO_CHAR)
             {
-
-                Console.WriteLine("\nDo you want to play again? y/n");
-                Console.ReadKey(true);
-
-                if (useranswerChar == NO_CHAR)
-                {
-                    break;
-                }
-                else
-                {
-                    cashBox -= PLAYING_COST;
-                }
-                Console.WriteLine(userChoiceText);
-                ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
-                userChoiceChar = userNumberChoice.KeyChar;
-
-
+                break;
             }
             else
             {
-
-                Console.WriteLine("You don't have money! do you want to bet again? y/n");
-
-                ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
-                char userConfirmationChar = userConfirmation.KeyChar;
-
-                if (userConfirmationChar == YES_CHAR)
-
-                {
-                    Console.WriteLine($"amount that you want to bet ");
-                    int lossConfirmation = Int32.Parse(Console.ReadLine());
-                    cashBox = lossConfirmation;
-                }
-                else
-                {
-                    break;
-                }
+                cashBox -= PLAYING_COST;
             }
-            Console.Clear();
+            Console.WriteLine(userChoiceText);
+            ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
+            userChoiceChar = userNumberChoice.KeyChar;
+
+
         }
+        else
+        {
 
+            Console.WriteLine("You don't have money! do you want to bet again? y/n");
 
+            ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
+            char userConfirmationChar = userConfirmation.KeyChar;
+
+            if (userConfirmationChar == YES_CHAR)
+
+            {
+                Console.WriteLine($"amount that you want to bet ");
+                int lossConfirmation = Int32.Parse(Console.ReadLine());
+                cashBox = lossConfirmation;
+            }
+            else
+            {
+                break;
+            }
+        }
+        Console.Clear();
     }
 }
+        
+            
+
+
+    
+

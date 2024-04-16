@@ -72,10 +72,21 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
 
-                //call ui method for the user info PrintResult(numberofmatches);
-                UI_Design.OutputWinLoseRows(numberOfMatches);
+<                //call ui method for the user info PrintResult(numberofmatches);
+>                UI_Design.OutputWinLoseRows(numberOfMatches);
 
                 UI_Design.PrintTotalAmountMoney(totalAmountMoney);
+
+                if(COLUMNS_CHAR == userChoiceChar)
+                {
+                    Logic.FindNumberOfMatchingColumns(slotNumbers);
+                }
+
+                cashBox = cashBox + Logic.CalcColumnsWinning(numberOfMatches);
+                //call ui method for the user info PrintResult(numberofmatches);
+                UI_Design.OutputWinLoseColumns(numberOfMatches);
+                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
+
 
 
             }
