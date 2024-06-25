@@ -6,19 +6,6 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            const int ROWS = 3;
-            const int COLUMNS = 3;
-            //declare range of numbers that should be displayed randomly
-            const int MAX = 9;
-            const int MIN = 1;
-            // declare bonus win for multiple matching rows/columns
-
-            // declare characters that user should press for choosing rows, diagonals, columns, yes or no
-            const char COLUMNS_CHAR = 'c';
-            const char ROWS_CHAR = 'r';
-            const char DIA_CHAR = 'd';
-            const char YES_CHAR = 'y';
-            const char NO_CHAR = 'n';
 
             // creates random number
             Random random = new Random();
@@ -36,28 +23,37 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             UI_Design.PrintuserChoiceText();
      
             // initialized array with the slot numbers
-            int[,] slotNumbers = new int[ROWS, COLUMNS]; // define the exact number of rows and columns
+            int[,] slotNumbers = new int[Constants.ROWS, Constants.COLUMNS]; // define the exact number of rows and columns
             // declare number of matching rows/columns that later will change depending on the progression of the game
 
             int numberOfMatches = 0;
-            bool winningMatchFound = true;
-            bool winningMatchFoundLeft = true;
-            bool winningMatchFoundRight = true;
+            bool playAgain = true;
 
-            while (true) // while loop is used for repeating a block of code until the user blocks it
+            while (playAgain) // while loop is used for repeating a block of code until the user blocks it
             {
                 numberOfMatches = 0; // reset number of matches
-                
+
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
+
+                slotNumbers = Logic.PopulateGrid(slotNumbers);
 
                 for (int col = 0; col < slotNumbers.GetLength(0); col++)
                 {
                     for (int row = 0; row < slotNumbers.GetLength(1); row++)
                     {
-                        int computerChoice = random.Next(MIN, MAX + 1);
-                        slotNumbers[col, row] = computerChoice;
+                        int computerChoice = random.Next(Constants.MIN, Constants.MAX + 1);
+                        slotNumbers[col, row] = 1;
+                        if (col == 0)
+                        {
+                            slotNumbers[col, row] = 2;
+                        }
+                        if(col == 1)
+                        {
+                            slotNumbers[col, row] = 3;
+                        }
                     }
+
                 }
                 //-----------------------------------------------------
 
@@ -65,28 +61,34 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 //block that decides if there is a row win or not
                 //if gamemode ....
-                if (ROWS_CHAR == userChoiceChar)
+                if (Constants.ROWS_CHAR == userChoiceChar)
                 {
-                    Logic.FindNumberOfMatchingRows(slotNumbers);
+                    numberOfMatches = Logic.FindNumberOfMatchingRows(slotNumbers);
+
                 }
 
                 cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
 
-<                //call ui method for the user info PrintResult(numberofmatches);
->                UI_Design.OutputWinLoseRows(numberOfMatches);
-
+               //call ui method for the user info PrintResult(numberofmatches);
+               
+                if (UI_Design.OutputWinLoseRows(numberOfMatches)==0)
+                {
+                    break;
+                }
                 UI_Design.PrintTotalAmountMoney(totalAmountMoney);
 
-                if(COLUMNS_CHAR == userChoiceChar)
+                Console.Clear();
+
+                if (Constants.COLUMNS_CHAR == userChoiceChar)
                 {
-                    Logic.FindNumberOfMatchingColumns(slotNumbers);
+                    numberOfMatches =  Logic.FindNumberOfMatchingColumns(slotNumbers);
                 }
 
                 cashBox = cashBox + Logic.CalcColumnsWinning(numberOfMatches);
                 //call ui method for the user info PrintResult(numberofmatches);
                 UI_Design.OutputWinLoseColumns(numberOfMatches);
                 UI_Design.PrintTotalAmountMoney(totalAmountMoney);
-
+                playAgain = Logic.FinalLogic(cashBox);
 
 
             }

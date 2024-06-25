@@ -41,19 +41,20 @@ namespace Slot_Machine
         }
 
         //        // 4 - output win / lose (depending on number of matches, is displays Youwin / you lose)
-        public static void OutputWinLoseRows(int numOfMatches)
+        public static int OutputWinLoseRows(int numOfMatches)
         {
             if (numOfMatches == 0)
             {
                 string lose = "You Lose!";
                 Console.WriteLine(lose);
+                
             }
             else
             {
                 string win = $"You Win! number of matching rows: {numOfMatches} ";
                 Console.WriteLine(win);
             }
-
+            return numOfMatches;
         }
         public static void OutputWinLoseColumns(int numOfMatches)
         {
@@ -80,6 +81,15 @@ namespace Slot_Machine
                 Console.WriteLine($"You Win! number of matching diagonals: {numOfMatches} ");
             }
         }
+
+        /*
+         * public static void FinalUIoutputs()
+        {
+            Console.WriteLine(userChoiceText);
+                ConsoleKeyInfo userNumberChoice = Console.ReadKey(true);
+                userChoiceChar = userNumberChoice.KeyChar;
+        }
+         */
     }
 }
 
