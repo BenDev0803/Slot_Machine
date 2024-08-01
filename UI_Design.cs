@@ -20,6 +20,7 @@ namespace Slot_Machine
             Char userChoiceChar = userChoiceKeyInfo.KeyChar;
             return userChoiceChar;
         }
+
         public static void PrintYouBet(string youBet) { Console.WriteLine(youBet); }
         public static void PrintTotalAmountMoney(string totalAmountMoney) { Console.WriteLine(totalAmountMoney); }
 

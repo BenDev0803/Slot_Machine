@@ -221,7 +221,7 @@ namespace Slot_Machine
                     cashBox = lossConfirmation;
                     return true;
                 }
-                return false;
+                return true;
             }
         }
     }
@@ -229,7 +229,6 @@ namespace Slot_Machine
     
 
 
-    /*/ 5 - keep track of money*/
 
     
         

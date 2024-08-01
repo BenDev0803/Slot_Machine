@@ -31,6 +31,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             while (playAgain) // while loop is used for repeating a block of code until the user blocks it
             {
+                
+                
+                
                 numberOfMatches = 0; // reset number of matches
 
                 // 1 - fill 2 dimensional array with random slotNumbers
@@ -59,6 +62,8 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 UI_Design.DisplayArrayInRowsAndColumns(slotNumbers);
 
+                //Console.WriteLine();
+
                 //block that decides if there is a row win or not
                 //if gamemode ....
                 if (Constants.ROWS_CHAR == userChoiceChar)
@@ -66,18 +71,20 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                     numberOfMatches = Logic.FindNumberOfMatchingRows(slotNumbers);
 
                 }
+                
 
                 cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
 
-               //call ui method for the user info PrintResult(numberofmatches);
-               
+                //call ui method for the user info PrintResult(numberofmatches);
+
+                UI_Design.OutputWinLoseRows(numberOfMatches);
                 if (UI_Design.OutputWinLoseRows(numberOfMatches)==0)
                 {
                     break;
                 }
                 UI_Design.PrintTotalAmountMoney(totalAmountMoney);
 
-                Console.Clear();
+                
 
                 if (Constants.COLUMNS_CHAR == userChoiceChar)
                 {
@@ -90,6 +97,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 UI_Design.PrintTotalAmountMoney(totalAmountMoney);
                 playAgain = Logic.FinalLogic(cashBox);
 
+                Console.Clear();
 
             }
         }
