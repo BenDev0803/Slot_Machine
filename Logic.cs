@@ -19,14 +19,6 @@ namespace Slot_Machine
                     Random random = new Random();
                     int computerChoice = random.Next(Constants.MIN, Constants.MAX + 1);
                     slotNumbers[col, row] = 1;
-                    if (col == 0)
-                    {
-                        slotNumbers[col, row] = 2;
-                    }
-                    if (col == 1)
-                    {
-                        slotNumbers[col, row] = 3;
-                    }
                 }
 
             }
@@ -63,28 +55,31 @@ namespace Slot_Machine
         }
 
         // 5 - keep track of money (depending on number of matches calculate cash available)
-        public static int CalcRowsWinnings(int numOfMatches)
+        public static int CalcRowsWinnings(int numberOfMatches)
         {
-            //   int amount = 0;
+            int amount = 0;
 
-            if (numOfMatches > 0)
+
+            if (numberOfMatches == 1)
             {
-                return Constants.CASHBOX_WIN;
+
+                amount = Constants.CASHBOX_WIN ;
+                
             }
-            else if (numOfMatches == Constants.ROWS - 1)
+            else if (numberOfMatches == Constants.ROWS - 1)
             {
-                return Constants.BONUS_WIN;
+                amount = Constants.BONUS_WIN;
             }
-            else if (numOfMatches == Constants.ROWS)
+            else if (numberOfMatches == Constants.ROWS)
             {
-                return (Constants.BONUS_WIN * Constants.ROWS);
+                amount = (Constants.BONUS_WIN * Constants.ROWS);
             }
             else
             {
-                return -Constants.CASHBOX_LOSS;
+                amount = Constants.CASHBOX_LOSS - amount;
             }
 
-            //return amount;
+            return amount;
         }
 
         public static int FindNumberOfMatchingColumns(int[,] slotNumbers)
@@ -187,30 +182,33 @@ namespace Slot_Machine
             return cashBox;
         }
 
+        //public static bool 
         public static bool FinalLogic(int cashBox)
         {
-            ConsoleKeyInfo userAnswer = Console.ReadKey(true);
-            Char useranswerChar = userAnswer.KeyChar;
+            //ConsoleKeyInfo userAnswer = Console.ReadKey();
+            //Char useranswerChar = userAnswer.KeyChar;
             
             if (cashBox > 0)
             {
 
                 Console.WriteLine("\nDo you want to play again? y/n");
-                Console.ReadKey(true);
+                ConsoleKeyInfo userAnswer = Console.ReadKey();
+                Char useranswerChar = userAnswer.KeyChar;
+                //Console.ReadKey();
 
                 if (useranswerChar == Constants.YES_CONFIRMATION_CHAR)
                 {
                     cashBox -= Constants.PLAYING_COST;
                     return true;
-                }
-                return false;
-
+                }                
+                    return false;
+              
             }
             else
             {
 
                 Console.WriteLine("You don't have money! do you want to bet again? y/n");
-                ConsoleKeyInfo userConfirmation = Console.ReadKey(true);
+                ConsoleKeyInfo userConfirmation = Console.ReadKey();
                 char userConfirmationChar = userConfirmation.KeyChar;
 
                 if (userConfirmationChar == Constants.YES_CONFIRMATION_CHAR)

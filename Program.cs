@@ -10,17 +10,9 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             // creates random number
             Random random = new Random();
             //game start initial statement
-            UI_Design.PrintInitialStatement();
             //the user here inputs the amount of money that wants to bet
-            int userBet = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
-            string youBet = "you bet " + userBet;
-            UI_Design.PrintYouBet(youBet);
-            int cashBox = userBet;
-            string totalAmountMoney = "your total amount of money is " + cashBox;
-            UI_Design.PrintTotalAmountMoney(totalAmountMoney);
+            
             // game start second statement
-            Char userChoiceChar = UI_Design.GetUserChoice();
-            UI_Design.PrintuserChoiceText();
      
             // initialized array with the slot numbers
             int[,] slotNumbers = new int[Constants.ROWS, Constants.COLUMNS]; // define the exact number of rows and columns
@@ -28,12 +20,21 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
             int numberOfMatches = 0;
             bool playAgain = true;
+            UI_Design.PrintInitialStatement();
+            int initialBettingAmount = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
+                string youBet = "you bet " + initialBettingAmount;
+                int cashBox = initialBettingAmount;
+                string totalAmountMoney = "your total amount of money is " + cashBox;
 
             while (playAgain) // while loop is used for repeating a block of code until the user blocks it
             {
                 
-                
-                
+                UI_Design.PrintYouBet(youBet);
+                Char userChoiceChar = UI_Design.GetUserChoice();
+                UI_Design.PrintuserChoiceText();
+                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
+
+
                 numberOfMatches = 0; // reset number of matches
 
                 // 1 - fill 2 dimensional array with random slotNumbers
@@ -41,65 +42,66 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                 slotNumbers = Logic.PopulateGrid(slotNumbers);
 
-                for (int col = 0; col < slotNumbers.GetLength(0); col++)
-                {
-                    for (int row = 0; row < slotNumbers.GetLength(1); row++)
-                    {
-                        int computerChoice = random.Next(Constants.MIN, Constants.MAX + 1);
-                        slotNumbers[col, row] = 1;
-                        if (col == 0)
-                        {
-                            slotNumbers[col, row] = 2;
-                        }
-                        if(col == 1)
-                        {
-                            slotNumbers[col, row] = 3;
-                        }
-                    }
-
-                }
+               
                 //-----------------------------------------------------
 
                 UI_Design.DisplayArrayInRowsAndColumns(slotNumbers);
 
-                //Console.WriteLine();
 
                 //block that decides if there is a row win or not
                 //if gamemode ....
                 if (Constants.ROWS_CHAR == userChoiceChar)
                 {
                     numberOfMatches = Logic.FindNumberOfMatchingRows(slotNumbers);
+                    //call ui method for the user info PrintResult(numberofmatches);
 
+                    UI_Design.OutputWinLoseRows(numberOfMatches);
+
+                    Console.WriteLine();
+
+                    cashBox += Logic.CalcRowsWinnings(numberOfMatches);
+                    Console.WriteLine(totalAmountMoney);
+                    
+                    //call ui method for the user info PrintResult(numberofmatches);
+
+                    playAgain = Logic.FinalLogic(cashBox);
                 }
-                
-
-                cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
-
-                //call ui method for the user info PrintResult(numberofmatches);
-
-                UI_Design.OutputWinLoseRows(numberOfMatches);
-                if (UI_Design.OutputWinLoseRows(numberOfMatches)==0)
+                else if (Constants.COLUMNS_CHAR == userChoiceChar)
                 {
-                    break;
-                }
-                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
-
+                    numberOfMatches = Logic.FindNumberOfMatchingColumns(slotNumbers);
+                    UI_Design.OutputWinLoseColumns(numberOfMatches);
+                    Console.WriteLine();
+                    cashBox += Logic.CalcColumnsWinning(numberOfMatches);
+                    Console.WriteLine(totalAmountMoney);
+                    playAgain = Logic.FinalLogic(cashBox);
                 
-
-                if (Constants.COLUMNS_CHAR == userChoiceChar)
+                }
+                else if( Constants.DIA_CHAR == userChoiceChar)
                 {
-                    numberOfMatches =  Logic.FindNumberOfMatchingColumns(slotNumbers);
+                    numberOfMatches = Logic.CalcDiaWinnings(numberOfMatches);
+                    Console.WriteLine();
+                    cashBox += Logic.CalcDiaWinnings(numberOfMatches);
+                    Console.WriteLine(totalAmountMoney);
+                    playAgain = Logic.FinalLogic(cashBox);
                 }
 
-                cashBox = cashBox + Logic.CalcColumnsWinning(numberOfMatches);
-                //call ui method for the user info PrintResult(numberofmatches);
-                UI_Design.OutputWinLoseColumns(numberOfMatches);
-                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
-                playAgain = Logic.FinalLogic(cashBox);
 
-                Console.Clear();
+                /*
+                     if (Constants.COLUMNS_CHAR == userChoiceChar)
+                    {
+                        numberOfMatches =  Logic.FindNumberOfMatchingColumns(slotNumbers);
+                        cashBox = cashBox + Logic.CalcColumnsWinning(numberOfMatches);
+                    }
+                     */
+
+
+
+
+
+
 
             }
+            Console.WriteLine("/ngame is over");
         }
     }
 }

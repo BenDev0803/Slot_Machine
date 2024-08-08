@@ -5,6 +5,10 @@ namespace Slot_Machine
     public static class UI_Design
     {
 
+
+
+
+
         public static void PrintInitialStatement()
         {
             string initialStatement = "\nSlot machine! place your bet! every spin costs 1$, if you win you get 1$!";
