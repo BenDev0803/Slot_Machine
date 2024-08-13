@@ -22,17 +22,15 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             bool playAgain = true;
             UI_Design.PrintInitialStatement();
             int initialBettingAmount = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
-                string youBet = "you bet " + initialBettingAmount;
-                int cashBox = initialBettingAmount;
-                string totalAmountMoney = "your total amount of money is " + cashBox;
+            UI_Design.PrintYouBet(initialBettingAmount);
+            int cashBox = initialBettingAmount;
+            string totalAmountMoney = "your total amount of money is " + cashBox;
 
             while (playAgain) // while loop is used for repeating a block of code until the user blocks it
             {
                 
-                UI_Design.PrintYouBet(youBet);
                 Char userChoiceChar = UI_Design.GetUserChoice();
                 UI_Design.PrintuserChoiceText();
-                UI_Design.PrintTotalAmountMoney(totalAmountMoney);
 
 
                 numberOfMatches = 0; // reset number of matches
@@ -59,20 +57,25 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
 
                     Console.WriteLine();
 
-                    cashBox += Logic.CalcRowsWinnings(numberOfMatches);
-                    Console.WriteLine(totalAmountMoney);
-                    
+                    cashBox = cashBox + Logic.CalcRowsWinnings(numberOfMatches);
+
                     //call ui method for the user info PrintResult(numberofmatches);
+                    Console.WriteLine("your total amount of money is " + cashBox);
 
                     playAgain = Logic.FinalLogic(cashBox);
                 }
                 else if (Constants.COLUMNS_CHAR == userChoiceChar)
                 {
                     numberOfMatches = Logic.FindNumberOfMatchingColumns(slotNumbers);
+
                     UI_Design.OutputWinLoseColumns(numberOfMatches);
+
                     Console.WriteLine();
-                    cashBox += Logic.CalcColumnsWinning(numberOfMatches);
-                    Console.WriteLine(totalAmountMoney);
+
+                    cashBox = cashBox + Logic.CalcColumnsWinning(numberOfMatches);
+
+                    Console.WriteLine("your total amount of money is " + cashBox);
+
                     playAgain = Logic.FinalLogic(cashBox);
                 
                 }
@@ -80,12 +83,16 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 {
                     numberOfMatches = Logic.CalcDiaWinnings(numberOfMatches);
                     Console.WriteLine();
-                    cashBox += Logic.CalcDiaWinnings(numberOfMatches);
-                    Console.WriteLine(totalAmountMoney);
+                    cashBox = cashBox + Logic.CalcDiaWinnings(numberOfMatches);
+                    Console.WriteLine("your total amount of money is " + cashBox);
+
                     playAgain = Logic.FinalLogic(cashBox);
                 }
 
+                
+                Console.WriteLine("your total amount of money is " + cashBox);
 
+                Console.Clear();
                 /*
                      if (Constants.COLUMNS_CHAR == userChoiceChar)
                     {

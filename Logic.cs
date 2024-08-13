@@ -111,22 +111,31 @@ namespace Slot_Machine
 
         public static int CalcColumnsWinning(int numOfMatches)
         {
-            if (numOfMatches > 0)
+            int amount = 0;
+
+            //1. 0 wins if
+            //2. 1 win else if
+            //3. Constants.COLUMNS wins -> user wins on all columns 5X5  else if
+            //4. all the others else
+
+            if (numOfMatches == 1)
             {
-                return Constants.CASHBOX_WIN;
+                amount += Constants.CASHBOX_WIN;
             }
             else if (numOfMatches == Constants.COLUMNS - 1)
             {
-                return Constants.BONUS_WIN;
+
+                amount += Constants.BONUS_WIN;
             }
             else if (numOfMatches == Constants.COLUMNS)
             {
-                return (Constants.BONUS_WIN * Constants.COLUMNS);
+                amount += (Constants.BONUS_WIN * Constants.COLUMNS);
             }
             else
             {
-                return -Constants.CASHBOX_LOSS;
+                amount = -Constants.CASHBOX_LOSS;
             }
+             return amount;
         }
         public static void FindNumberOfMatchingDiagonals(int[,] slotNumbers)
         {
@@ -166,20 +175,22 @@ namespace Slot_Machine
         }
         public static int CalcDiaWinnings(int numOfMatches)
         {
-            int cashBox = 0;
-            switch (numOfMatches)
+            
+            int amount = 0;
+
+            switch (numOfMatches )
             {
                 case Constants.NUMBER_OF_DIAGONALS:
-                    cashBox += Constants.BONUS_WIN * Constants.NUMBER_OF_DIAGONALS;
+                    amount += Constants.BONUS_WIN * Constants.NUMBER_OF_DIAGONALS;
                     break;
-                case 0:
-                    cashBox -= Constants.CASHBOX_LOSS;
+                case 1:
+                    amount += Constants.CASHBOX_WIN;
                     break;
                 default:
-                    cashBox -= Constants.CASHBOX_WIN;
+                    amount -= Constants.CASHBOX_LOSS;
                     break;
             }
-            return cashBox;
+            return amount;
         }
 
         //public static bool 
@@ -223,6 +234,7 @@ namespace Slot_Machine
             }
         }
     }
+
 }
     
 

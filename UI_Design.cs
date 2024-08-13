@@ -22,11 +22,17 @@ namespace Slot_Machine
             // read the input from the user
             ConsoleKeyInfo userChoiceKeyInfo = Console.ReadKey(true);
             Char userChoiceChar = userChoiceKeyInfo.KeyChar;
-            return userChoiceChar;
+            return Char.ToLower(userChoiceChar);
         }
 
-        public static void PrintYouBet(string youBet) { Console.WriteLine(youBet); }
-        public static void PrintTotalAmountMoney(string totalAmountMoney) { Console.WriteLine(totalAmountMoney); }
+        public static void PrintYouBet(int initialBettingAmount) 
+        {
+            Console.WriteLine("you bet " + initialBettingAmount); 
+        }
+        public static void PrintTotalAmountMoney(string totalAmountMoney) 
+        { 
+            Console.WriteLine(totalAmountMoney); 
+        }
 
 
         public static void DisplayArrayInRowsAndColumns(int[,] slotNumbers)
