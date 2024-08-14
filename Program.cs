@@ -21,7 +21,15 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             int numberOfMatches = 0;
             bool playAgain = true;
             UI_Design.PrintInitialStatement();
-            int initialBettingAmount = Int32.Parse(Console.ReadLine()); // Int32.Parse() method is used to convert the string to a number.
+
+            //-----------------------------------------------
+            
+            int initialBettingAmount = 0;
+            string errorText = Console.ReadLine();
+            bool aNumber = int.TryParse(errorText, out initialBettingAmount);
+
+            //-----------------------------------------------
+
             UI_Design.PrintYouBet(initialBettingAmount);
             int cashBox = initialBettingAmount;
             string totalAmountMoney = "your total amount of money is " + cashBox;
@@ -29,6 +37,19 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
             while (playAgain) // while loop is used for repeating a block of code until the user blocks it
             {
                 
+                    if (!aNumber)
+                    {
+                        Console.WriteLine("that's not a number! try again!");
+                        UI_Design.PrintInitialStatement();
+                        errorText = Console.ReadLine();
+                        aNumber = int.TryParse(errorText,out initialBettingAmount) ;
+                        UI_Design.PrintYouBet(initialBettingAmount);
+                        cashBox = initialBettingAmount;
+                        totalAmountMoney = "your total amount of money is " + cashBox;
+                        Console.WriteLine(totalAmountMoney);
+                    }
+                    
+
                 Char userChoiceChar = UI_Design.GetUserChoice();
                 UI_Design.PrintuserChoiceText();
 
@@ -38,7 +59,7 @@ namespace Slot_Machine // Note: actual namespace depends on the project name.
                 // 1 - fill 2 dimensional array with random slotNumbers
                 //-----------------------------------------------------
 
-                slotNumbers = Logic.PopulateGrid(slotNumbers);
+                slotNumbers = Logic.PopulateGrid(slotNumbers, new Random());
 
                
                 //-----------------------------------------------------

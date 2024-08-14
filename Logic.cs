@@ -9,14 +9,15 @@ namespace Slot_Machine
         
 
 
-        public static int[,] PopulateGrid(int[,] slotNumbers)
+        public static int[,] PopulateGrid(int[,] slotNumbers, Random random)
         {
-            for(int col = 0; col < slotNumbers.GetLength(0); col++)
-                {
+             random = new Random();
+            for (int col = 0; col < slotNumbers.GetLength(0); col++)
+            {
                 for (int row = 0; row < slotNumbers.GetLength(1); row++)
                 {
+                    //random.Next(Constants.MIN, Constants.MAX + 1);
                     // creates random number
-                    Random random = new Random();
                     int computerChoice = random.Next(Constants.MIN, Constants.MAX + 1);
                     slotNumbers[col, row] = 1;
                 }
@@ -24,6 +25,8 @@ namespace Slot_Machine
             }
             return slotNumbers;
         }
+
+
 
         // 3 - check if numbers of a row are all the same-
         public static int FindNumberOfMatchingRows(int[,] slotNumbers)
@@ -113,19 +116,13 @@ namespace Slot_Machine
         {
             int amount = 0;
 
-            //1. 0 wins if
-            //2. 1 win else if
-            //3. Constants.COLUMNS wins -> user wins on all columns 5X5  else if
-            //4. all the others else
-
-            if (numOfMatches == 1)
+            if (numOfMatches == 0) 
+            {
+                amount = Constants.CASHBOX_LOSS;    
+            }
+            else if (numOfMatches == 1)
             {
                 amount += Constants.CASHBOX_WIN;
-            }
-            else if (numOfMatches == Constants.COLUMNS - 1)
-            {
-
-                amount += Constants.BONUS_WIN;
             }
             else if (numOfMatches == Constants.COLUMNS)
             {
@@ -133,7 +130,7 @@ namespace Slot_Machine
             }
             else
             {
-                amount = -Constants.CASHBOX_LOSS;
+                amount += Constants.BONUS_WIN;
             }
              return amount;
         }
@@ -233,6 +230,8 @@ namespace Slot_Machine
                 return true;
             }
         }
+
+        
     }
 
 }
